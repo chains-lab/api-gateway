@@ -1,0 +1,9 @@
+.idea
+vendor
+node_modules
+docs/node_modules
+
+main
+config_local.yaml
+config_docker.yaml
+
