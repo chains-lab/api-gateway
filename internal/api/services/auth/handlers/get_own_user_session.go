@@ -5,28 +5,29 @@ import (
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
+	"github.com/chains-lab/api-gateway/internal/api/services/auth/responses"
 	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/google/uuid"
 )
 
-func OwnTerminateSessions(w http.ResponseWriter, r *http.Request) {
+func OwnGetSession(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	signature, err := signer.ServiceToken(r, requestID, []string{"chains-auth"})
 	if err != nil {
-		Log(r, requestID).WithError(err).Errorf("error signing service token for own session termination")
+		Log(r, requestID).WithError(err).Errorf("error signing service token for own session")
 		renderer.InternalError(w, requestID)
 
 		return
 	}
 
-	_, err = AuthClient(r).TerminateUserSessions(signature, &sso.Empty{})
+	sessions, err := AuthClient(r).GetOwnUserSessions(signature, &sso.Empty{})
 	if err != nil {
-		Log(r, requestID).WithError(err).Errorf("error terminating own sessions")
+		Log(r, requestID).WithError(err).Errorf("error retrieving own session")
 		renderer.RenderGRPCError(w, requestID, err)
 
 		return
 	}
 
-	renderer.Render(w, http.StatusNoContent)
+	renderer.Render(w, responses.SessionCollection(sessions))
 }

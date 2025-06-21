@@ -3,9 +3,9 @@ module github.com/chains-lab/api-gateway
 go 1.23.7
 
 require (
-	zincompatible
+	github.com/alecthomas/kingpin v2.2.6+incompatible
 	github.com/chains-lab/gatekit v0.0.7
-	github.com/chains-lab/proto-storage v0.0.246
+	github.com/chains-lab/proto-storage v0.0.31
 	github.com/go-chi/chi/v5 v5.2.2
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
 	github.com/google/jsonapi v1.0.0
@@ -13,7 +13,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/viper v1.20.1
-	golang.org/x/oauth2 v0.30.0
 	google.golang.org/grpc v1.73.0
 )
 

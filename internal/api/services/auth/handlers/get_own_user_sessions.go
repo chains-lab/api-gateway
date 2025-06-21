@@ -21,7 +21,7 @@ func OwnGetSessions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sessions, err := AuthClient(r).GetUserSessions(signature, &sso.Empty{})
+	sessions, err := AuthClient(r).GetOwnUserSessions(signature, &sso.Empty{})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error retrieving own sessions")
 		renderer.RenderGRPCError(w, requestID, err)

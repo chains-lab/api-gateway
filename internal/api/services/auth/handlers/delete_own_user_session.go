@@ -29,7 +29,7 @@ func DeleteSession(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = AuthClient(r).DeleteUserSession(signature, &sso.DeleteUserSessionRequest{
+	_, err = AuthClient(r).DeleteOwnUserSession(signature, &sso.DeleteOwnUserSessionRequest{
 		SessionId: initiator.SessionID.String(),
 	})
 	if err != nil {

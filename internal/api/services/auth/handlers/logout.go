@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"archive/hs-zavet/comtools/httpkit"
 	"net/http"
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
@@ -39,5 +38,5 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Log(r, requestID).Infof("user %s logged out successfully", initiator.UserID)
-	httpkit.Render(w, http.StatusNoContent)
+	renderer.Render(w, http.StatusNoContent)
 }
