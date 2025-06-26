@@ -65,7 +65,7 @@ paths:
               description: URL for redirection
               schema:
                 type: string
-                example: /re-news/chains/auth/v1/own/callback
+                example: /re-news/chains/sso/v1/own/callback
         '500':
           $ref: '#/components/responses/Internal'
   /re-news/chains/auth/v1/own/callback:

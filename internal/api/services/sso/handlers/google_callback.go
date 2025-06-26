@@ -5,15 +5,15 @@ import (
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/api-gateway/internal/api/services/auth/responses"
-	"github.com/chains-lab/proto-storage/gen/go/auth"
+	"github.com/chains-lab/api-gateway/internal/api/services/sso/responses"
+	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/google/uuid"
 )
 
 func GoogleCallback(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-auth"})
+	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for new user")
 		renderer.InternalError(w, requestID)
@@ -21,7 +21,7 @@ func GoogleCallback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := AuthClient(r).GoogleCallback(signature, &auth.GoogleCallbackRequest{
+	resp, err := AuthClient(r).GoogleCallback(signature, &sso.GoogleCallbackRequest{
 		Code: r.URL.Query().Get("code"),
 	})
 	if err != nil {

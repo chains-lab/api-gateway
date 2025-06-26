@@ -61,7 +61,7 @@ func (a *LoginAPIService) ReNewsChainsAuthV1OwnCallbackPostExecute(r ApiReNewsCh
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/auth/v1/own/callback"
+	localVarPath := localBasePath + "/re-news/chains/sso/v1/own/callback"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -179,7 +179,7 @@ func (a *LoginAPIService) ReNewsChainsAuthV1OwnLoginPostExecute(r ApiReNewsChain
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/auth/v1/own/login"
+	localVarPath := localBasePath + "/re-news/chains/sso/v1/own/login"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -279,7 +279,7 @@ func (a *LoginAPIService) ReNewsChainsAuthV1OwnLogoutPostExecute(r ApiReNewsChai
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/auth/v1/own/logout"
+	localVarPath := localBasePath + "/re-news/chains/sso/v1/own/logout"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

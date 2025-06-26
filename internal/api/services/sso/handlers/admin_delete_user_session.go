@@ -5,7 +5,7 @@ import (
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/proto-storage/gen/go/auth"
+	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/google/uuid"
 )
 
@@ -28,7 +28,7 @@ func AdminDeleteUserSession(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-auth"})
+	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for session %s", sessionID)
 		renderer.InternalError(w, requestID)
@@ -36,7 +36,7 @@ func AdminDeleteUserSession(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = AuthClient(r).AdminDeleteUserSession(signature, &auth.AdminDeleteUserSessionRequest{
+	_, err = AuthClient(r).AdminDeleteUserSession(signature, &sso.AdminDeleteUserSessionRequest{
 		SessionId: sessionID.String(),
 		UserId:    userID.String(),
 	})

@@ -5,15 +5,13 @@ import (
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/api-gateway/internal/api/services/auth/responses"
-	"github.com/chains-lab/gatekit/roles"
 	"github.com/chains-lab/gatekit/tokens"
-	"github.com/chains-lab/proto-storage/gen/go/auth"
+	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 )
 
-func AdminUpdateRole(w http.ResponseWriter, r *http.Request) {
+func AdminTerminateUserSessions(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	initiator, err := tokens.GetUserTokenData(r.Context())
@@ -32,15 +30,7 @@ func AdminUpdateRole(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	role, err := roles.ParseRole(chi.URLParam(r, "role"))
-	if err != nil {
-		Log(r, requestID).WithError(err).Errorf("error parsing role %s", chi.URLParam(r, "role"))
-		renderer.BadRequest(w, requestID, "The provided role is not valid.")
-
-		return
-	}
-
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-auth"})
+	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", userID)
 		renderer.InternalError(w, requestID)
@@ -48,18 +38,16 @@ func AdminUpdateRole(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := AuthClient(r).AdminUpdateUserRole(signature, &auth.AdminUpdateUserRoleRequest{
+	_, err = AuthClient(r).AdminTerminateUserSessions(signature, &sso.AdminTerminateUserSessionsRequest{
 		UserId: userID.String(),
-		Role:   string(role),
 	})
-
 	if err != nil {
-		Log(r, requestID).WithError(err).Errorf("error updating user role for user %s", userID)
+		Log(r, requestID).WithError(err).Errorf("error terminate session for user %s by %s", userID, initiator.UserID)
 		renderer.RenderGRPCError(w, requestID, err)
 
 		return
 	}
 
-	Log(r, requestID).Infof("user %s role updated to %s by %s", userID, role, initiator.UserID)
-	renderer.Render(w, responses.User(user))
+	Log(r, requestID).Infof("terminate session %s for user %s", userID, initiator.UserID)
+	renderer.Render(w, http.StatusAccepted)
 }

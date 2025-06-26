@@ -2,18 +2,18 @@ package handlers
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/api-gateway/internal/api/services/auth/responses"
+	"github.com/chains-lab/api-gateway/internal/api/services/sso/responses"
+	"github.com/chains-lab/gatekit/roles"
 	"github.com/chains-lab/gatekit/tokens"
-	"github.com/chains-lab/proto-storage/gen/go/auth"
+	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 )
 
-func AdminUpdateVerified(w http.ResponseWriter, r *http.Request) {
+func AdminUpdateRole(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	initiator, err := tokens.GetUserTokenData(r.Context())
@@ -32,16 +32,15 @@ func AdminUpdateVerified(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	verified, err := strconv.ParseBool(chi.URLParam(r, "verified"))
+	role, err := roles.ParseRole(chi.URLParam(r, "role"))
 	if err != nil {
-		Log(r, requestID).WithError(err).
-			Errorf("error parsing verified status %q", chi.URLParam(r, "verified"))
-		renderer.BadRequest(w, requestID,
-			"The provided verified status is not valid; must be \"true\" or \"false\".")
+		Log(r, requestID).WithError(err).Errorf("error parsing role %s", chi.URLParam(r, "role"))
+		renderer.BadRequest(w, requestID, "The provided role is not valid.")
+
 		return
 	}
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-auth"})
+	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", userID)
 		renderer.InternalError(w, requestID)
@@ -49,17 +48,18 @@ func AdminUpdateVerified(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := AuthClient(r).AdminUpdateUserVerified(signature, &auth.AdminUpdateUserVerifiedRequest{
-		UserId:   userID.String(),
-		Verified: verified,
+	user, err := AuthClient(r).AdminUpdateUserRole(signature, &sso.AdminUpdateUserRoleRequest{
+		UserId: userID.String(),
+		Role:   string(role),
 	})
+
 	if err != nil {
-		Log(r, requestID).WithError(err).Errorf("error updating user verified status for user %s", userID)
+		Log(r, requestID).WithError(err).Errorf("error updating user role for user %s", userID)
 		renderer.RenderGRPCError(w, requestID, err)
 
 		return
 	}
 
-	Log(r, requestID).WithField("user_id", userID).Infof("user %s verified status updated to %t by %s", userID, verified, initiator.UserID)
+	Log(r, requestID).Infof("user %s role updated to %s by %s", userID, role, initiator.UserID)
 	renderer.Render(w, responses.User(user))
 }

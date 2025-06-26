@@ -2,16 +2,18 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
+	"github.com/chains-lab/api-gateway/internal/api/services/sso/responses"
 	"github.com/chains-lab/gatekit/tokens"
-	"github.com/chains-lab/proto-storage/gen/go/auth"
+	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 )
 
-func AdminTerminateUserSessions(w http.ResponseWriter, r *http.Request) {
+func AdminUpdateSuspended(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	initiator, err := tokens.GetUserTokenData(r.Context())
@@ -30,7 +32,16 @@ func AdminTerminateUserSessions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-auth"})
+	suspended, err := strconv.ParseBool(chi.URLParam(r, "suspended"))
+	if err != nil {
+		Log(r, requestID).WithError(err).
+			Errorf("error parsing suspended status %q", chi.URLParam(r, "suspended"))
+		renderer.BadRequest(w, requestID,
+			"The provided suspended status is not valid; must be \"true\" or \"false\".")
+		return
+	}
+
+	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", userID)
 		renderer.InternalError(w, requestID)
@@ -38,16 +49,17 @@ func AdminTerminateUserSessions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = AuthClient(r).AdminTerminateUserSessions(signature, &auth.AdminTerminateUserSessionsRequest{
-		UserId: userID.String(),
+	user, err := AuthClient(r).AdminUpdateUserSuspended(signature, &sso.AdminUpdateUserSuspendedRequest{
+		UserId:    userID.String(),
+		Suspended: suspended,
 	})
 	if err != nil {
-		Log(r, requestID).WithError(err).Errorf("error terminate session for user %s by %s", userID, initiator.UserID)
+		Log(r, requestID).WithError(err).Errorf("error updating user suspended status for user %s", userID)
 		renderer.RenderGRPCError(w, requestID, err)
 
 		return
 	}
 
-	Log(r, requestID).Infof("terminate session %s for user %s", userID, initiator.UserID)
-	renderer.Render(w, http.StatusAccepted)
+	Log(r, requestID).WithField("user_id", userID).Infof("user suspended status updated to %t by %s", suspended, initiator.UserID)
+	renderer.Render(w, responses.User(user))
 }

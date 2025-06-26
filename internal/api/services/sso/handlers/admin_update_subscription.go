@@ -2,18 +2,17 @@ package handlers
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/api-gateway/internal/api/services/auth/responses"
+	"github.com/chains-lab/api-gateway/internal/api/services/sso/responses"
 	"github.com/chains-lab/gatekit/tokens"
-	"github.com/chains-lab/proto-storage/gen/go/auth"
+	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 )
 
-func AdminUpdateSuspended(w http.ResponseWriter, r *http.Request) {
+func AdminUpdateSubscription(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	initiator, err := tokens.GetUserTokenData(r.Context())
@@ -32,16 +31,15 @@ func AdminUpdateSuspended(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	suspended, err := strconv.ParseBool(chi.URLParam(r, "suspended"))
+	subscription, err := uuid.Parse(chi.URLParam(r, "subscription"))
 	if err != nil {
-		Log(r, requestID).WithError(err).
-			Errorf("error parsing suspended status %q", chi.URLParam(r, "suspended"))
-		renderer.BadRequest(w, requestID,
-			"The provided suspended status is not valid; must be \"true\" or \"false\".")
+		Log(r, requestID).WithError(err).Errorf("error parsing subscription ID %s", chi.URLParam(r, "subscription"))
+		renderer.BadRequest(w, requestID, "The provided subscription ID is not a valid UUID.")
+
 		return
 	}
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-auth"})
+	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", userID)
 		renderer.InternalError(w, requestID)
@@ -49,17 +47,17 @@ func AdminUpdateSuspended(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := AuthClient(r).AdminUpdateUserSuspended(signature, &auth.AdminUpdateUserSuspendedRequest{
-		UserId:    userID.String(),
-		Suspended: suspended,
+	user, err := AuthClient(r).AdminUpdateUserSubscription(signature, &sso.AdminUpdateUserSubscriptionRequest{
+		UserId:       userID.String(),
+		Subscription: subscription.String(),
 	})
 	if err != nil {
-		Log(r, requestID).WithError(err).Errorf("error updating user suspended status for user %s", userID)
+		Log(r, requestID).WithError(err).Errorf("error updating user subscription for user %s", userID)
 		renderer.RenderGRPCError(w, requestID, err)
 
 		return
 	}
 
-	Log(r, requestID).WithField("user_id", userID).Infof("user suspended status updated to %t by %s", suspended, initiator.UserID)
+	Log(r, requestID).WithField("user_id", userID).Infof("user %s subscription updated to %s by %s", userID, subscription, initiator.UserID)
 	renderer.Render(w, responses.User(user))
 }

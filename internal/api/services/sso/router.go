@@ -1,8 +1,8 @@
-package auth
+package sso
 
 import (
 	"github.com/chains-lab/api-gateway/internal/api/common/middleware"
-	"github.com/chains-lab/api-gateway/internal/api/services/auth/handlers"
+	"github.com/chains-lab/api-gateway/internal/api/services/sso/handlers"
 	"github.com/chains-lab/api-gateway/internal/config"
 	"github.com/chains-lab/gatekit/roles"
 	"github.com/go-chi/chi/v5"
@@ -12,7 +12,7 @@ func Router(r chi.Router, cfg config.Config) chi.Router {
 	auth := middleware.AuthMdl(cfg.JWT.User.AccessToken.SecretKey, cfg.JWT.Service.SecretKey)
 	admin := middleware.RolesGrant(cfg.JWT.User.AccessToken.SecretKey, roles.Admin, roles.SuperUser)
 
-	r.Route("/auth", func(r chi.Router) {
+	r.Route("/sso", func(r chi.Router) {
 		r.Route("/own", func(r chi.Router) {
 			r.Use(auth)
 

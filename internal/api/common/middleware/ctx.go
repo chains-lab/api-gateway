@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/chains-lab/proto-storage/gen/go/auth"
+	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/sirupsen/logrus"
 )
 
@@ -29,12 +29,12 @@ func CtxMiddleWare(extenders ...func(context.Context) context.Context) func(http
 }
 
 func CtxLog(log *logrus.Logger) func(context.Context) context.Context {
-	return func(context.Context) context.Context {
-		return context.WithValue(context.Background(), LogCtxKey, log)
+	return func(ctx context.Context) context.Context {
+		return context.WithValue(ctx, LogCtxKey, log)
 	}
 }
 
-func ChainsAuthCtx(service auth.ServiceClient) func(context.Context) context.Context {
+func ChainsAuthCtx(service sso.ServiceClient) func(context.Context) context.Context {
 	return func(ctx context.Context) context.Context {
 		return context.WithValue(ctx, ChainsAutHCtxKey, service)
 	}

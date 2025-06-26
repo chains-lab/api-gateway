@@ -14,6 +14,8 @@ github.com/chains-lab/proto-storage v0.0.322 h1:F/Zi2dGfcj6r/fO2SYZ0yoFWvUlxQBOV
 github.com/chains-lab/proto-storage v0.0.322/go.mod h1:LRT/DzERSmdJL5HKzKAa8G+2ouFjwmRwaD0wpllY2FU=
 github.com/chains-lab/proto-storage v0.0.323 h1:ZY+z0M5vA9LBoPowNI/5UgJRMymqLEO9YJQ482Mmpcc=
 github.com/chains-lab/proto-storage v0.0.323/go.mod h1:LRT/DzERSmdJL5HKzKAa8G+2ouFjwmRwaD0wpllY2FU=
+github.com/chains-lab/proto-storage v0.0.324 h1:LrGffrMnNQLIn/EQiB/ckd7MVNzJ7nHtWBohvmscGPY=
+github.com/chains-lab/proto-storage v0.0.324/go.mod h1:LRT/DzERSmdJL5HKzKAa8G+2ouFjwmRwaD0wpllY2FU=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

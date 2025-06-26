@@ -2,17 +2,18 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/api-gateway/internal/api/services/auth/responses"
+	"github.com/chains-lab/api-gateway/internal/api/services/sso/responses"
 	"github.com/chains-lab/gatekit/tokens"
-	"github.com/chains-lab/proto-storage/gen/go/auth"
+	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 )
 
-func AdminUpdateSubscription(w http.ResponseWriter, r *http.Request) {
+func AdminUpdateVerified(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	initiator, err := tokens.GetUserTokenData(r.Context())
@@ -31,15 +32,16 @@ func AdminUpdateSubscription(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	subscription, err := uuid.Parse(chi.URLParam(r, "subscription"))
+	verified, err := strconv.ParseBool(chi.URLParam(r, "verified"))
 	if err != nil {
-		Log(r, requestID).WithError(err).Errorf("error parsing subscription ID %s", chi.URLParam(r, "subscription"))
-		renderer.BadRequest(w, requestID, "The provided subscription ID is not a valid UUID.")
-
+		Log(r, requestID).WithError(err).
+			Errorf("error parsing verified status %q", chi.URLParam(r, "verified"))
+		renderer.BadRequest(w, requestID,
+			"The provided verified status is not valid; must be \"true\" or \"false\".")
 		return
 	}
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-auth"})
+	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", userID)
 		renderer.InternalError(w, requestID)
@@ -47,17 +49,17 @@ func AdminUpdateSubscription(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := AuthClient(r).AdminUpdateUserSubscription(signature, &auth.AdminUpdateUserSubscriptionRequest{
-		UserId:       userID.String(),
-		Subscription: subscription.String(),
+	user, err := AuthClient(r).AdminUpdateUserVerified(signature, &sso.AdminUpdateUserVerifiedRequest{
+		UserId:   userID.String(),
+		Verified: verified,
 	})
 	if err != nil {
-		Log(r, requestID).WithError(err).Errorf("error updating user subscription for user %s", userID)
+		Log(r, requestID).WithError(err).Errorf("error updating user verified status for user %s", userID)
 		renderer.RenderGRPCError(w, requestID, err)
 
 		return
 	}
 
-	Log(r, requestID).WithField("user_id", userID).Infof("user %s subscription updated to %s by %s", userID, subscription, initiator.UserID)
+	Log(r, requestID).WithField("user_id", userID).Infof("user %s verified status updated to %t by %s", userID, verified, initiator.UserID)
 	renderer.Render(w, responses.User(user))
 }

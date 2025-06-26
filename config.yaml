@@ -1,6 +1,6 @@
 server:
-  name: "chains-auth"
-  port: ":8001"
+  name: "chains-sso"
+  port: ":8000"
   base_path: "/api/v1"
   test_mode: true
 
@@ -34,3 +34,7 @@ swagger:
   enabled: true
   url: "/swagger"
   port: "8080"
+
+services:
+  sso-svc:
+    url: "localhost:8001"

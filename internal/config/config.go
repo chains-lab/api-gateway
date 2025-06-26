@@ -55,8 +55,8 @@ type OAuthConfig struct {
 
 type ServicesConfig struct {
 	SSO struct {
-		Address string `mapstructure:"addresses"`
-	} `mapstructure:"sso"`
+		Url string `mapstructure:"addresses"`
+	} `mapstructure:"sso-svc"`
 }
 
 type Config struct {

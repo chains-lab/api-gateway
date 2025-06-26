@@ -2,7 +2,7 @@ package responses
 
 import (
 	"github.com/chains-lab/api-gateway/resources"
-	pb "github.com/chains-lab/proto-storage/gen/go/auth"
+	pb "github.com/chains-lab/proto-storage/gen/go/sso"
 )
 
 func SessionCollection(sessions *pb.SessionsListResponse) *resources.SessionsCollection {

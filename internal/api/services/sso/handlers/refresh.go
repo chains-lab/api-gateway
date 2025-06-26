@@ -5,10 +5,10 @@ import (
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/api-gateway/internal/api/services/auth/requests"
-	"github.com/chains-lab/api-gateway/internal/api/services/auth/responses"
+	"github.com/chains-lab/api-gateway/internal/api/services/sso/requests"
+	"github.com/chains-lab/api-gateway/internal/api/services/sso/responses"
 	"github.com/chains-lab/gatekit/tokens"
-	"github.com/chains-lab/proto-storage/gen/go/auth"
+	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/google/uuid"
 )
 
@@ -31,14 +31,14 @@ func Refresh(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-auth"})
+	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for own session termination")
 		renderer.InternalError(w, requestID)
 
 		return
 	}
-	resp, err := AuthClient(r).RefreshToken(signature, &auth.RefreshTokenRequest{
+	resp, err := AuthClient(r).RefreshToken(signature, &sso.RefreshTokenRequest{
 		Agent:        "agent",
 		RefreshToken: req.Data.Attributes.RefreshToken,
 	})

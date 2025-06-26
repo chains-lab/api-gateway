@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/chains-lab/api-gateway/internal/api/common/middleware"
-	"github.com/chains-lab/api-gateway/internal/api/services/auth"
+	"github.com/chains-lab/api-gateway/internal/api/services/sso"
 	"github.com/chains-lab/api-gateway/internal/config"
 	"github.com/go-chi/chi/v5"
 	"github.com/sirupsen/logrus"
@@ -41,14 +41,14 @@ func (a Api) Run(ctx context.Context) {
 	r.Use(
 		middleware.CtxMiddleWare(
 			middleware.CtxLog(a.cfg.GetLogger()),
-			middleware.ChainsAuthCtx(a.cfg.ChainsAuth()),
+			middleware.ChainsAuthCtx(a.cfg.SsoSvc()),
 		),
 	)
 
-	chainAuth := auth.Router(r, a.cfg)
+	chainAuth := sso.Router(r, a.cfg)
 
 	r.Route("/api", func(r chi.Router) {
-		r.Mount("/chains-auth", chainAuth)
+		r.Mount("/svc", chainAuth)
 	})
 
 	a.Start(ctx)

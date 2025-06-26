@@ -5,8 +5,8 @@ import (
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/api-gateway/internal/api/services/auth/responses"
-	"github.com/chains-lab/proto-storage/gen/go/auth"
+	"github.com/chains-lab/api-gateway/internal/api/services/sso/responses"
+	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/google/uuid"
 )
 
@@ -21,7 +21,7 @@ func AdminGetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-auth"})
+	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", userID)
 		renderer.InternalError(w, requestID)
@@ -29,7 +29,7 @@ func AdminGetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := AuthClient(r).AdminGetUser(signature, &auth.AdminGetUserRequest{
+	user, err := AuthClient(r).AdminGetUser(signature, &sso.AdminGetUserRequest{
 		UserId: userID.String(),
 	})
 	if err != nil {
