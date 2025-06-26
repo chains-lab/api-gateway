@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/chains-lab/proto-storage/gen/go/sso"
+	"github.com/chains-lab/proto-storage/gen/go/auth"
 	"github.com/sirupsen/logrus"
 )
 
@@ -34,7 +34,7 @@ func CtxLog(log *logrus.Logger) func(context.Context) context.Context {
 	}
 }
 
-func ChainsAuthCtx(service sso.SsoServiceClient) func(context.Context) context.Context {
+func ChainsAuthCtx(service auth.ServiceClient) func(context.Context) context.Context {
 	return func(ctx context.Context) context.Context {
 		return context.WithValue(ctx, ChainsAutHCtxKey, service)
 	}

@@ -7,7 +7,7 @@ import (
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
 	"github.com/chains-lab/api-gateway/internal/api/services/auth/responses"
 	"github.com/chains-lab/gatekit/tokens"
-	"github.com/chains-lab/proto-storage/gen/go/sso"
+	"github.com/chains-lab/proto-storage/gen/go/auth"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 )
@@ -47,7 +47,7 @@ func AdminUpdateSubscription(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := AuthClient(r).AdminUpdateUserSubscription(signature, &sso.AdminUpdateUserSubscriptionRequest{
+	user, err := AuthClient(r).AdminUpdateUserSubscription(signature, &auth.AdminUpdateUserSubscriptionRequest{
 		UserId:       userID.String(),
 		Subscription: subscription.String(),
 	})

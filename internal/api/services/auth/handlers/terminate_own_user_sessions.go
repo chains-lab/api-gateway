@@ -5,7 +5,7 @@ import (
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/proto-storage/gen/go/sso"
+	"github.com/chains-lab/proto-storage/gen/go/auth"
 	"github.com/google/uuid"
 )
 
@@ -20,7 +20,7 @@ func OwnTerminateSessions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = AuthClient(r).TerminateOwnUserSessions(signature, &sso.Empty{})
+	_, err = AuthClient(r).TerminateOwnUserSessions(signature, &auth.Empty{})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error terminating own sessions")
 		renderer.RenderGRPCError(w, requestID, err)

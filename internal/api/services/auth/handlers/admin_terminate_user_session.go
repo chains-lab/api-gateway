@@ -6,7 +6,7 @@ import (
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
 	"github.com/chains-lab/gatekit/tokens"
-	"github.com/chains-lab/proto-storage/gen/go/sso"
+	"github.com/chains-lab/proto-storage/gen/go/auth"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 )
@@ -38,7 +38,7 @@ func AdminTerminateUserSessions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = AuthClient(r).AdminTerminateUserSessions(signature, &sso.AdminTerminateUserSessionsRequest{
+	_, err = AuthClient(r).AdminTerminateUserSessions(signature, &auth.AdminTerminateUserSessionsRequest{
 		UserId: userID.String(),
 	})
 	if err != nil {

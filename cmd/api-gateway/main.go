@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/chains-lab/api-gateway/internal/cli"
+	"github.com/chains-lab/api-gateway/cmd/cli"
 )
 
 func main() {

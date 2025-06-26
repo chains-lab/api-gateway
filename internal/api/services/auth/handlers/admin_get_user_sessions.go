@@ -6,7 +6,7 @@ import (
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
 	"github.com/chains-lab/api-gateway/internal/api/services/auth/responses"
-	"github.com/chains-lab/proto-storage/gen/go/sso"
+	"github.com/chains-lab/proto-storage/gen/go/auth"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 )
@@ -30,7 +30,7 @@ func AdminGetUserSessions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sessions, err := AuthClient(r).AdminGetUserSessions(signature, &sso.AdminGetUserSessionsRequest{
+	sessions, err := AuthClient(r).AdminGetUserSessions(signature, &auth.AdminGetUserSessionsRequest{
 		UserId: userID.String(),
 	})
 	if err != nil {

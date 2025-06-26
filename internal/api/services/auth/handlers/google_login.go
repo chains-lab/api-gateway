@@ -2,9 +2,32 @@ package handlers
 
 import (
 	"net/http"
+
+	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
+	"github.com/chains-lab/api-gateway/internal/api/common/signer"
+	"github.com/chains-lab/proto-storage/gen/go/auth"
+	"github.com/google/uuid"
 )
 
 func GoogleLogin(w http.ResponseWriter, r *http.Request) {
-	//url := h.google.AuthCodeURL("state-token", oauth2.AccessTypeOffline)
-	//http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+	requestID := uuid.New()
+
+	//TODO change
+	signature, err := signer.ServiceToken(r, requestID, []string{"chains-auth"})
+	if err != nil {
+		Log(r, requestID).WithError(err).Errorf("error signing service token for new user")
+		renderer.InternalError(w, requestID)
+
+		return
+	}
+
+	rep, err := AuthClient(r).GoogleLogin(signature, &auth.Empty{})
+	if err != nil {
+		Log(r, requestID).WithError(err).Errorf("error retrieving Google login URL")
+		renderer.InternalError(w, requestID)
+
+		return
+	}
+
+	http.Redirect(w, r, rep.Url, http.StatusTemporaryRedirect)
 }

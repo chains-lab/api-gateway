@@ -1,6 +1,6 @@
 DB_URL=postgresql://postgres:postgres@localhost:7001/postgres?sslmode=disable
 OPENAPI_GENERATOR := java -jar ~/openapi-generator-cli.jar
-CONFIG_FILE := ./config_local.yaml
+CONFIG_FILE := ./config.yaml
 API_SRC := ./docs/api.yaml
 API_BUNDLED := ./docs/api-bundled.yaml
 OUTPUT_DIR := ./docs/web
@@ -23,5 +23,5 @@ start-docs:
 	 http-server .
 
 run-server:
-	KV_VIPER_FILE=$(CONFIG_FILE) go build -o main ./main.go
-	KV_VIPER_FILE=$(CONFIG_FILE) ./main run service
+	KV_VIPER_FILE=$(CONFIG_FILE) go build -o ./cmd/api-gateway/main ./cmd/api-gateway/main.go
+	KV_VIPER_FILE=$(CONFIG_FILE) ./cmd/api-gateway/main run service

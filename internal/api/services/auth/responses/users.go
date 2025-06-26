@@ -4,10 +4,10 @@ import (
 	"time"
 
 	"github.com/chains-lab/api-gateway/resources"
-	"github.com/chains-lab/proto-storage/gen/go/sso"
+	"github.com/chains-lab/proto-storage/gen/go/auth"
 )
 
-func User(user *sso.UserResponse) resources.User {
+func User(user *auth.UserResponse) resources.User {
 	updatedAt, err := time.Parse(time.RFC3339, user.UpdatedAt)
 	if err != nil {
 		updatedAt = time.Time{}

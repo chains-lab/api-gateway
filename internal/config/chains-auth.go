@@ -4,12 +4,12 @@ import (
 	"log"
 	"time"
 
-	pb "github.com/chains-lab/proto-storage/gen/go/sso"
+	"github.com/chains-lab/proto-storage/gen/go/auth"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-func (c *Config) ChainsAuth() pb.SsoServiceClient {
+func (c *Config) ChainsAuth() auth.ServiceClient {
 	conn, err := grpc.NewClient(
 		c.Services.SSO.Address,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
@@ -21,7 +21,7 @@ func (c *Config) ChainsAuth() pb.SsoServiceClient {
 		log.Fatalf("cannot dial SSO service %q: %v", c.Services.SSO.Address, err)
 	}
 
-	client := pb.NewSsoServiceClient(conn)
+	client := auth.NewServiceClient(conn)
 
 	return client
 }

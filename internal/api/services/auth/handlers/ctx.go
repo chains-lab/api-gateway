@@ -4,13 +4,13 @@ import (
 	"net/http"
 
 	"github.com/chains-lab/api-gateway/internal/api/common/middleware"
-	"github.com/chains-lab/proto-storage/gen/go/sso"
+	"github.com/chains-lab/proto-storage/gen/go/auth"
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 )
 
-func AuthClient(r *http.Request) sso.SsoServiceClient {
-	return r.Context().Value(middleware.ChainsAutHCtxKey).(sso.SsoServiceClient)
+func AuthClient(r *http.Request) auth.ServiceClient {
+	return r.Context().Value(middleware.ChainsAutHCtxKey).(auth.ServiceClient)
 }
 
 func Log(r *http.Request, requestID uuid.UUID) *logrus.Entry {

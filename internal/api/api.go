@@ -38,14 +38,14 @@ func NewAPI(cfg config.Config) Api {
 func (a Api) Run(ctx context.Context) {
 	r := a.router
 
-	chainAuth := auth.Router(r, a.cfg)
-
 	r.Use(
 		middleware.CtxMiddleWare(
 			middleware.CtxLog(a.cfg.GetLogger()),
 			middleware.ChainsAuthCtx(a.cfg.ChainsAuth()),
 		),
 	)
+
+	chainAuth := auth.Router(r, a.cfg)
 
 	r.Route("/api", func(r chi.Router) {
 		r.Mount("/chains-auth", chainAuth)
