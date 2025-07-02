@@ -6,22 +6,22 @@ info:
 
 paths:
   /chains/auth/v1/own:
-    $ref: './paths/OwnData.yaml'
+    $ref: './paths/sso-svc/OwnData.yaml'
 
   /re-news/chains/auth/v1/own/refresh:
-    $ref: './paths/Refresh.yaml'
+    $ref: './paths/sso-svc/Refresh.yaml'
 
   /re-news/chains/auth/v1/own/login:
-    $ref: './paths/Login.yaml'
+    $ref: './paths/sso-svc/Login.yaml'
 
   /re-news/chains/auth/v1/own/callback:
-    $ref: './paths/LoginCallback.yaml'
+    $ref: './paths/sso-svc/LoginCallback.yaml'
 
   /re-news/chains/auth/v1/own/logout:
-    $ref: './paths/Logout.yaml'
+    $ref: './paths/sso-svc/Logout.yaml'
 
   /re-news/chains/auth/v1/own/sessions:
-    $ref: './paths/OwnSessions.yaml'
+    $ref: './paths/sso-svc/OwnSessions.yaml'
 
   /re-news/chains/auth/v1/own/sessions/{session_id}:
     parameters:
@@ -30,7 +30,7 @@ paths:
         required: true
         schema:
           type: string
-    $ref: './paths/OwnSession.yaml'
+    $ref: './paths/sso-svc/OwnSession.yaml'
 
     #Admins
 
@@ -41,7 +41,7 @@ paths:
         required: true
         schema:
           type: string
-    $ref: './paths/AdminGetUser.yaml'
+    $ref: './paths/sso-svc/AdminGetUser.yaml'
 
   /re-news/chains/auth/v1/admin/{user_id}/{role}:
     parameters:
@@ -55,7 +55,7 @@ paths:
         required: true
         schema:
           type: string
-    $ref: './paths/AdminUpdateRole.yaml'
+    $ref: './paths/sso-svc/AdminUpdateRole.yaml'
 
   /re-news/chains/auth/v1/admin/{user_id}/sessions:
     parameters:
@@ -64,7 +64,7 @@ paths:
         required: true
         schema:
           type: string
-    $ref: './paths/AdminUserSessions.yaml'
+    $ref: './paths/sso-svc/AdminUserSessions.yaml'
 
   /re-news/chains/auth/v1/admin/{user_id}/sessions/{session_id}:
     parameters:
@@ -78,28 +78,63 @@ paths:
         required: true
         schema:
           type: string
-    $ref: './paths/AdminUserSession.yaml'
+    $ref: './paths/sso-svc/AdminUserSession.yaml'
 
 components:
   schemas:
-    TokensPair:
-      $ref: './spec/components/schemas/TokensPair.yaml'
+
+    ########## sso-svc ##########
+
+    # request
     RefreshToken:
-      $ref: './spec/components/schemas/RefreshToken.yaml'
+      $ref: './spec/components/schemas/sso-svc/requests/RefreshToken.yaml'
+    CreateUserByAdmin:
+      $ref: './spec/components/schemas/sso-svc/requests/CreateUserByAdmin.yaml'
+
+    # responses
+    TokensPair:
+      $ref: './spec/components/schemas/sso-svc/responses/TokensPair.yaml'
     AccessToken:
-      $ref: './spec/components/schemas/AccessToken.yaml'
+      $ref: './spec/components/schemas/sso-svc/responses/AccessToken.yaml'
     Session:
-      $ref: './spec/components/schemas/Session.yaml'
+      $ref: './spec/components/schemas/sso-svc/responses/Session.yaml'
     SessionData:
-      $ref: './spec/components/schemas/SessionData.yaml'
+      $ref: './spec/components/schemas/sso-svc/responses/SessionData.yaml'
     SessionAttributes:
-      $ref: './spec/components/schemas/SessionAttributes.yaml'
+      $ref: './spec/components/schemas/sso-svc/responses/SessionAttributes.yaml'
     SessionsCollection:
-      $ref: './spec/components/schemas/SessionsCollection.yaml'
+      $ref: './spec/components/schemas/sso-svc/responses/SessionsCollection.yaml'
     User:
-      $ref: './spec/components/schemas/User.yaml'
+      $ref: './spec/components/schemas/sso-svc/responses/User.yaml'
     Errors:
       $ref: './spec/components/schemas/Errors.yaml'
+
+    ########## elector-cab ##########
+
+    # request
+    UpdateOwnProfile:
+      $ref: './spec/components/schemas/elector-cab-svc/requests/UpdateOwnProfile.yaml'
+    UpdateProfileByAdmin:
+      $ref: './spec/components/schemas/elector-cab-svc/requests/ResetProfileByAdmin.yaml'
+
+    # responses
+    Biography:
+      $ref: './spec/components/schemas/elector-cab-svc/responses/Biography.yaml'
+    BiographyAttributes:
+      $ref: './spec/components/schemas/elector-cab-svc/responses/BiographyAttributes.yaml'
+    Cabinet:
+      $ref: './spec/components/schemas/elector-cab-svc/responses/Cabinet.yaml'
+    CabinetAttributes:
+      $ref: './spec/components/schemas/elector-cab-svc/responses/CabinetAttributes.yaml'
+    JobResume:
+      $ref: './spec/components/schemas/elector-cab-svc/responses/JobResume.yaml'
+    JobResumeAttributes:
+      $ref: './spec/components/schemas/elector-cab-svc/responses/JobResumeAttributes.yaml'
+    Profile:
+      $ref: './spec/components/schemas/elector-cab-svc/responses/Profile.yaml'
+    ProfileAttributes:
+      $ref: './spec/components/schemas/elector-cab-svc/responses/ProfileAttributes.yaml'
+
 
   responses:
     Unauthorized:

@@ -1,0 +1,38 @@
+type: object
+required:
+  - username
+  - official
+  - updated_at
+  - created_at
+properties:
+  username:
+    type: string
+    description: The username of the elector.
+    example: johndoe
+  pseudonym:
+    type: string
+    description: The pseudonym of the elector, if applicable.
+    example: John D.
+  description:
+    type: string
+    description: A brief description of the elector.
+    example: "John Doe is a seasoned politician with over 20 years of experience in public service..."
+  avatar:
+    type: string
+    format: uri
+    description: The URL of the elector's avatar image.
+    example: "https://example.com/avatars/johndoe.jpg"
+  official:
+    type: boolean
+    description: Indicates if the elector is an official candidate.
+    example: true
+  updated_at:
+    type: string
+    format: date-time
+    description: The date and time when the profile was last updated.
+    example: "2023-10-01T12:00:00Z"
+  created_at:
+    type: string
+    format: date-time
+    description: The date and time when the profile was created.
+    example: "2023-09-01T12:00:00Z"

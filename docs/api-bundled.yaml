@@ -353,6 +353,59 @@ paths:
           $ref: '#/components/responses/Internal'
 components:
   schemas:
+    RefreshToken:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - type
+            - attributes
+          properties:
+            type:
+              type: string
+              enum:
+                - refresh_token
+            attributes:
+              type: object
+              required:
+                - refresh_token
+              properties:
+                refresh_token:
+                  type: string
+                  description: The refresh token to generate a new access token.
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+    CreateUserByAdmin:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - type
+            - attributes
+          properties:
+            type:
+              type: string
+              enum:
+                - create_admin
+            attributes:
+              type: object
+              required:
+                - email
+                - role
+              properties:
+                email:
+                  type: string
+                  description: The email address of the admin to be created.
+                  example: example@example.com
+                role:
+                  type: string
+                  description: The role of the admin to be created.
+                  example: admin
     TokensPair:
       type: object
       required:
@@ -381,30 +434,6 @@ components:
                 refresh_token:
                   type: string
                   description: Refresh Token
-    RefreshToken:
-      type: object
-      required:
-        - data
-      properties:
-        data:
-          type: object
-          required:
-            - type
-            - attributes
-          properties:
-            type:
-              type: string
-              enum:
-                - refresh_token
-            attributes:
-              type: object
-              required:
-                - refresh_token
-              properties:
-                refresh_token:
-                  type: string
-                  description: The refresh token to generate a new access token.
-                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
     AccessToken:
       type: object
       required:
@@ -621,6 +650,277 @@ components:
                     format: date-time
                     description: 'Timestamp is the time when the error occurred, in ISO 8601 format'
                     example: '2023-10-01T12:34:56Z'
+    UpdateOwnProfile:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          required:
+            - id
+            - type
+            - attributes
+          properties:
+            id:
+              type: string
+              description: User ID of the elector.
+            type:
+              type: string
+              enum:
+                - update_own_profile
+            attributes:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username of the elector.
+                  example: johndoe
+                pseudonym:
+                  type: string
+                  description: The pseudonym of the elector.
+                  example: John D.
+                description:
+                  type: string
+                  description: A brief description of the elector.
+                  example: John Doe is a seasoned politician with over 20 years of experience in public service...
+                avatar:
+                  type: string
+                  format: uri
+                  description: The URL of the elector's avatar image.
+                  example: 'https://example.com/avatars/johndoe.jpg'
+    UpdateProfileByAdmin:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          required:
+            - id
+            - type
+            - attributes
+          properties:
+            id:
+              type: string
+              description: User ID of the elector.
+            type:
+              type: string
+              enum:
+                - update_profile_by_admin
+            attributes:
+              type: object
+              properties:
+                pseudonym:
+                  type: boolean
+                description:
+                  type: boolean
+                avatar:
+                  type: boolean
+    Biography:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+            - attributes
+          properties:
+            id:
+              type: string
+              description: User ID of the elector.
+            type:
+              type: string
+              enum:
+                - biography
+            attributes:
+              $ref: '#/components/schemas/BiographyAttributes'
+    BiographyAttributes:
+      type: object
+      properties:
+        birthday:
+          type: string
+          format: date-time
+          description: The birth date of the elector.
+          example: '1980-01-01'
+        sex:
+          type: string
+          description: sex of the elector
+        city:
+          type: string
+          description: The city where the elector resides.
+          example: Springfield
+        region:
+          type: string
+          description: The region where the elector resides.
+          example: Massachusetts
+        country:
+          type: string
+          description: The country where the elector resides.
+          example: USA
+        nationality:
+          type: string
+          description: nationality of the elector
+          example: American
+        primary_language:
+          type: string
+          description: The primary language spoken by the elector.
+          example: English
+        sex_updated_at:
+          type: string
+          format: date-time
+        nationality_updated_at:
+          type: string
+          format: date-time
+        primary_language_updated_at:
+          type: string
+          format: date-time
+        residence_updated_at:
+          type: string
+          format: date-time
+    Cabinet:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+            - attributes
+          properties:
+            id:
+              type: string
+              description: User ID of the elector.
+            type:
+              type: string
+              enum:
+                - cabinet
+            attributes:
+              $ref: '#/components/schemas/CabinetAttributes'
+    CabinetAttributes:
+      type: object
+      required:
+        - profile
+        - biography
+        - job_resume
+      properties:
+        profile:
+          $ref: '#/components/schemas/ProfileAttributes'
+        biography:
+          $ref: '#/components/schemas/BiographyAttributes'
+        job_resume:
+          $ref: '#/components/schemas/JobResumeAttributes'
+    JobResume:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+            - attributes
+          properties:
+            id:
+              type: string
+              description: User ID of the elector.
+            type:
+              type: string
+              enum:
+                - job_resume
+            attributes:
+              $ref: '#/components/schemas/JobResumeAttributes'
+    JobResumeAttributes:
+      type: object
+      properties:
+        degree:
+          type: string
+          description: elector degree
+        industry:
+          type: string
+          description: elector industry
+        income:
+          type: string
+          description: elector income
+        degree_updated_at:
+          type: string
+          format: date-time
+          description: The date and time when the degree was last updated.
+          example: '2023-10-01T12:00:00Z'
+        industry_updated_at:
+          type: string
+          format: date-time
+          description: The date and time when the industry was last updated.
+          example: '2023-10-01T12:00:00Z'
+        income_updated_at:
+          type: string
+          format: date-time
+          description: The date and time when the income was last updated.
+          example: '2023-10-01T12:00:00Z'
+    Profile:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+            - attributes
+          properties:
+            id:
+              type: string
+              description: User ID of the elector.
+            type:
+              type: string
+              enum:
+                - profile
+            attributes:
+              $ref: '#/components/schemas/ProfileAttributes'
+    ProfileAttributes:
+      type: object
+      required:
+        - username
+        - official
+        - updated_at
+        - created_at
+      properties:
+        username:
+          type: string
+          description: The username of the elector.
+          example: johndoe
+        pseudonym:
+          type: string
+          description: 'The pseudonym of the elector, if applicable.'
+          example: John D.
+        description:
+          type: string
+          description: A brief description of the elector.
+          example: John Doe is a seasoned politician with over 20 years of experience in public service...
+        avatar:
+          type: string
+          format: uri
+          description: The URL of the elector's avatar image.
+          example: 'https://example.com/avatars/johndoe.jpg'
+        official:
+          type: boolean
+          description: Indicates if the elector is an official candidate.
+          example: true
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time when the profile was last updated.
+          example: '2023-10-01T12:00:00Z'
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the profile was created.
+          example: '2023-09-01T12:00:00Z'
   responses:
     Unauthorized:
       description: You must provide a valid authorization params.

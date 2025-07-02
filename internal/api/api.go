@@ -6,8 +6,10 @@ import (
 	"net/http"
 
 	"github.com/chains-lab/api-gateway/internal/api/common/middleware"
+	"github.com/chains-lab/api-gateway/internal/api/services/cabinet"
 	"github.com/chains-lab/api-gateway/internal/api/services/sso"
 	"github.com/chains-lab/api-gateway/internal/config"
+	"github.com/chains-lab/api-gateway/internal/grpcclients"
 	"github.com/go-chi/chi/v5"
 	"github.com/sirupsen/logrus"
 )
@@ -41,14 +43,19 @@ func (a Api) Run(ctx context.Context) {
 	r.Use(
 		middleware.CtxMiddleWare(
 			middleware.CtxLog(a.cfg.GetLogger()),
-			middleware.ChainsAuthCtx(a.cfg.SsoSvc()),
+			middleware.ChainsSsoSvcAdminCtx(grpcclients.SsoSvcAdmin(a.cfg)),
+			middleware.ChainsSsoSvcUserCtx(grpcclients.SsoSvcUser(a.cfg)),
+			middleware.ChainsElectorCabSvcUserCtx(grpcclients.ElectorCabUserSvc(a.cfg)),
+			middleware.ChainsElectorCabSvcAdminCtx(grpcclients.ElectorCabAdminSvc(a.cfg)),
 		),
 	)
 
-	chainAuth := sso.Router(r, a.cfg)
+	ssoSvc := sso.Router(r, a.cfg)
+	electorcabSvc := cabinet.Router(r, a.cfg)
 
 	r.Route("/api", func(r chi.Router) {
-		r.Mount("/svc", chainAuth)
+		r.Mount("/sso", ssoSvc)
+		r.Mount("/elector-cab", electorcabSvc)
 	})
 
 	a.Start(ctx)

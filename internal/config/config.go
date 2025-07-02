@@ -57,6 +57,9 @@ type ServicesConfig struct {
 	SSO struct {
 		Url string `mapstructure:"addresses"`
 	} `mapstructure:"sso-svc"`
+	ElectorCab struct {
+		Url string `mapstructure:"addresses"`
+	}
 }
 
 type Config struct {

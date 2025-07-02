@@ -68,7 +68,7 @@ func (a *SessionsAPIService) ReNewsChainsAuthV1OwnRefreshPostExecute(r ApiReNews
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/sso/v1/own/refresh"
+	localVarPath := localBasePath + "/re-news/chains/auth/v1/own/refresh"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -215,7 +215,7 @@ func (a *SessionsAPIService) ReNewsChainsAuthV1OwnSessionsDeleteExecute(r ApiReN
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/sso/v1/own/sessions"
+	localVarPath := localBasePath + "/re-news/chains/auth/v1/own/sessions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -346,7 +346,7 @@ func (a *SessionsAPIService) ReNewsChainsAuthV1OwnSessionsGetExecute(r ApiReNews
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/sso/v1/own/sessions"
+	localVarPath := localBasePath + "/re-news/chains/auth/v1/own/sessions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -469,7 +469,7 @@ func (a *SessionsAPIService) ReNewsChainsAuthV1OwnSessionsSessionIdDeleteExecute
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/sso/v1/own/sessions/{session_id}"
+	localVarPath := localBasePath + "/re-news/chains/auth/v1/own/sessions/{session_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"session_id"+"}", url.PathEscape(parameterValueToString(r.sessionId, "sessionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -604,7 +604,7 @@ func (a *SessionsAPIService) ReNewsChainsAuthV1OwnSessionsSessionIdGetExecute(r 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/sso/v1/own/sessions/{session_id}"
+	localVarPath := localBasePath + "/re-news/chains/auth/v1/own/sessions/{session_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"session_id"+"}", url.PathEscape(parameterValueToString(r.sessionId, "sessionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

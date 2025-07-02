@@ -1,0 +1,42 @@
+type: object
+properties:
+  birthday:
+    type: string
+    format: date-time
+    description: The birth date of the elector.
+    example: "1980-01-01"
+  sex:
+    type: string
+    description: sex of the elector
+  city:
+    type: string
+    description: The city where the elector resides.
+    example: "Springfield"
+  region:
+    type: string
+    description: The region where the elector resides.
+    example: "Massachusetts"
+  country:
+    type: string
+    description: The country where the elector resides.
+    example: "USA"
+  nationality:
+    type: string
+    description: nationality of the elector
+    example: "American"
+  primary_language:
+    type: string
+    description: The primary language spoken by the elector.
+    example: "English"
+  sex_updated_at:
+    type: string
+    format: date-time
+  nationality_updated_at:
+    type: string
+    format: date-time
+  primary_language_updated_at:
+    type: string
+    format: date-time
+  residence_updated_at:
+    type: string
+    format: date-time

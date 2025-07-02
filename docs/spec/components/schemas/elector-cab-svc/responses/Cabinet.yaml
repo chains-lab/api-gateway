@@ -1,0 +1,19 @@
+type: object
+required:
+  - data
+properties:
+  data:
+    type: object
+    required:
+      - id
+      - type
+      - attributes
+    properties:
+      id:
+        type: string
+        description: User ID of the elector.
+      type:
+        type: string
+        enum: [ cabinet ]
+      attributes:
+        $ref: "./CabinetAttributes.yaml"

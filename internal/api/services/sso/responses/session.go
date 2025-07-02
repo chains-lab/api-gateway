@@ -4,10 +4,10 @@ import (
 	"time"
 
 	"github.com/chains-lab/api-gateway/resources"
-	"github.com/chains-lab/proto-storage/gen/go/sso"
+	"github.com/chains-lab/proto-storage/gen/go/svc/sso"
 )
 
-func Session(session *sso.SessionResponse) resources.Session {
+func Session(session *sso.Session) resources.Session {
 	createdAt, err := time.Parse(time.RFC3339, session.CreatedAt)
 	if err != nil {
 		createdAt = time.Time{}

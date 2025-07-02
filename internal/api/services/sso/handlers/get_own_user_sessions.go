@@ -6,8 +6,8 @@ import (
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
 	"github.com/chains-lab/api-gateway/internal/api/services/sso/responses"
-	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/google/uuid"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 func OwnGetSessions(w http.ResponseWriter, r *http.Request) {
@@ -21,7 +21,7 @@ func OwnGetSessions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sessions, err := AuthClient(r).GetOwnUserSessions(signature, &sso.Empty{})
+	sessions, err := SsoUserClient(r).GetOwnUserSessions(signature, &emptypb.Empty{})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error retrieving own sessions")
 		renderer.RenderGRPCError(w, requestID, err)

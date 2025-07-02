@@ -1,0 +1,93 @@
+# CabinetAttributes
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Profile** | [**ProfileAttributes**](ProfileAttributes.md) |  | 
+**Biography** | [**BiographyAttributes**](BiographyAttributes.md) |  | 
+**JobResume** | [**JobResumeAttributes**](JobResumeAttributes.md) |  | 
+
+## Methods
+
+### NewCabinetAttributes
+
+`func NewCabinetAttributes(profile ProfileAttributes, biography BiographyAttributes, jobResume JobResumeAttributes, ) *CabinetAttributes`
+
+NewCabinetAttributes instantiates a new CabinetAttributes object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewCabinetAttributesWithDefaults
+
+`func NewCabinetAttributesWithDefaults() *CabinetAttributes`
+
+NewCabinetAttributesWithDefaults instantiates a new CabinetAttributes object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetProfile
+
+`func (o *CabinetAttributes) GetProfile() ProfileAttributes`
+
+GetProfile returns the Profile field if non-nil, zero value otherwise.
+
+### GetProfileOk
+
+`func (o *CabinetAttributes) GetProfileOk() (*ProfileAttributes, bool)`
+
+GetProfileOk returns a tuple with the Profile field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProfile
+
+`func (o *CabinetAttributes) SetProfile(v ProfileAttributes)`
+
+SetProfile sets Profile field to given value.
+
+
+### GetBiography
+
+`func (o *CabinetAttributes) GetBiography() BiographyAttributes`
+
+GetBiography returns the Biography field if non-nil, zero value otherwise.
+
+### GetBiographyOk
+
+`func (o *CabinetAttributes) GetBiographyOk() (*BiographyAttributes, bool)`
+
+GetBiographyOk returns a tuple with the Biography field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBiography
+
+`func (o *CabinetAttributes) SetBiography(v BiographyAttributes)`
+
+SetBiography sets Biography field to given value.
+
+
+### GetJobResume
+
+`func (o *CabinetAttributes) GetJobResume() JobResumeAttributes`
+
+GetJobResume returns the JobResume field if non-nil, zero value otherwise.
+
+### GetJobResumeOk
+
+`func (o *CabinetAttributes) GetJobResumeOk() (*JobResumeAttributes, bool)`
+
+GetJobResumeOk returns a tuple with the JobResume field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJobResume
+
+`func (o *CabinetAttributes) SetJobResume(v JobResumeAttributes)`
+
+SetJobResume sets JobResume field to given value.
+
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

@@ -5,8 +5,8 @@ import (
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/google/uuid"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 func GoogleLogin(w http.ResponseWriter, r *http.Request) {
@@ -21,7 +21,7 @@ func GoogleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rep, err := AuthClient(r).GoogleLogin(signature, &sso.Empty{})
+	rep, err := SsoUserClient(r).GoogleLogin(signature, &emptypb.Empty{})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error retrieving Google login URL")
 		renderer.InternalError(w, requestID)

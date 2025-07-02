@@ -1,0 +1,12 @@
+type: object
+required:
+  - profile
+  - biography
+  - job_resume
+properties:
+  profile:
+    $ref: "./ProfileAttributes.yaml"
+  biography:
+    $ref: "./BiographyAttributes.yaml"
+  job_resume:
+    $ref: "./JobResumeAttributes.yaml"

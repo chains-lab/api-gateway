@@ -8,7 +8,7 @@ import (
 	"github.com/chains-lab/api-gateway/internal/api/services/sso/requests"
 	"github.com/chains-lab/api-gateway/internal/api/services/sso/responses"
 	"github.com/chains-lab/gatekit/tokens"
-	"github.com/chains-lab/proto-storage/gen/go/sso"
+	"github.com/chains-lab/proto-storage/gen/go/svc/sso"
 	"github.com/google/uuid"
 )
 
@@ -38,7 +38,7 @@ func Refresh(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
-	resp, err := AuthClient(r).RefreshToken(signature, &sso.RefreshTokenRequest{
+	resp, err := SsoUserClient(r).RefreshToken(signature, &sso.RefreshTokenRequest{
 		Agent:        "agent",
 		RefreshToken: req.Data.Attributes.RefreshToken,
 	})

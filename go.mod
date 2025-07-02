@@ -5,7 +5,7 @@ go 1.23.7
 require (
 	github.com/alecthomas/kingpin v2.2.6+incompatible
 	github.com/chains-lab/gatekit v0.0.7
-	github.com/chains-lab/proto-storage v0.0.324
+	github.com/chains-lab/proto-storage v0.0.5311
 	github.com/go-chi/chi/v5 v5.2.2
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
 	github.com/google/jsonapi v1.0.0

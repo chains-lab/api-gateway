@@ -24,7 +24,7 @@ import (
 type contextKey string
 
 func (c contextKey) String() string {
-	return "sso " + string(c)
+	return "auth " + string(c)
 }
 
 var (

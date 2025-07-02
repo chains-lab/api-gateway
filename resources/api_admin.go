@@ -65,7 +65,7 @@ func (a *AdminAPIService) ReNewsChainsAuthV1AdminUserIdGetExecute(r ApiReNewsCha
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/sso/v1/admin/{user_id}"
+	localVarPath := localBasePath + "/re-news/chains/auth/v1/admin/{user_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"user_id"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -225,7 +225,7 @@ func (a *AdminAPIService) ReNewsChainsAuthV1AdminUserIdRolePostExecute(r ApiReNe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/sso/v1/admin/{user_id}/{role}"
+	localVarPath := localBasePath + "/re-news/chains/auth/v1/admin/{user_id}/{role}"
 	localVarPath = strings.Replace(localVarPath, "{"+"user_id"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"role"+"}", url.PathEscape(parameterValueToString(r.role, "role")), -1)
 
@@ -381,7 +381,7 @@ func (a *AdminAPIService) ReNewsChainsAuthV1AdminUserIdSessionsDeleteExecute(r A
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/sso/v1/admin/{user_id}/sessions"
+	localVarPath := localBasePath + "/re-news/chains/auth/v1/admin/{user_id}/sessions"
 	localVarPath = strings.Replace(localVarPath, "{"+"user_id"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -529,7 +529,7 @@ func (a *AdminAPIService) ReNewsChainsAuthV1AdminUserIdSessionsGetExecute(r ApiR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/sso/v1/admin/{user_id}/sessions"
+	localVarPath := localBasePath + "/re-news/chains/auth/v1/admin/{user_id}/sessions"
 	localVarPath = strings.Replace(localVarPath, "{"+"user_id"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -687,7 +687,7 @@ func (a *AdminAPIService) ReNewsChainsAuthV1AdminUserIdSessionsSessionIdDeleteEx
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/sso/v1/admin/{user_id}/sessions/{session_id}"
+	localVarPath := localBasePath + "/re-news/chains/auth/v1/admin/{user_id}/sessions/{session_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"user_id"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"session_id"+"}", url.PathEscape(parameterValueToString(r.sessionId, "sessionId")), -1)
 
@@ -839,7 +839,7 @@ func (a *AdminAPIService) ReNewsChainsAuthV1AdminUserIdSessionsSessionIdGetExecu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/re-news/chains/sso/v1/admin/{user_id}/sessions/{session_id}"
+	localVarPath := localBasePath + "/re-news/chains/auth/v1/admin/{user_id}/sessions/{session_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"user_id"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"session_id"+"}", url.PathEscape(parameterValueToString(r.sessionId, "sessionId")), -1)
 

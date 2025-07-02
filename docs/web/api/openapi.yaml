@@ -506,16 +506,22 @@ components:
             $ref: '#/components/schemas/Errors'
       description: bad request
   schemas:
-    TokensPair:
-      properties:
-        data:
-          $ref: '#/components/schemas/TokensPair_data'
-      required:
-      - data
     RefreshToken:
       properties:
         data:
           $ref: '#/components/schemas/RefreshToken_data'
+      required:
+      - data
+    CreateUserByAdmin:
+      properties:
+        data:
+          $ref: '#/components/schemas/CreateUserByAdmin_data'
+      required:
+      - data
+    TokensPair:
+      properties:
+        data:
+          $ref: '#/components/schemas/TokensPair_data'
       required:
       - data
     AccessToken:
@@ -593,6 +599,204 @@ components:
           type: array
       required:
       - errors
+    UpdateOwnProfile:
+      properties:
+        data:
+          $ref: '#/components/schemas/UpdateOwnProfile_data'
+      required:
+      - data
+    UpdateProfileByAdmin:
+      properties:
+        data:
+          $ref: '#/components/schemas/UpdateProfileByAdmin_data'
+      required:
+      - data
+    Biography:
+      properties:
+        data:
+          $ref: '#/components/schemas/Biography_data'
+      required:
+      - data
+    BiographyAttributes:
+      properties:
+        birthday:
+          description: The birth date of the elector.
+          example: 1980-01-01
+          format: date-time
+          type: string
+        sex:
+          description: sex of the elector
+          type: string
+        city:
+          description: The city where the elector resides.
+          example: Springfield
+          type: string
+        region:
+          description: The region where the elector resides.
+          example: Massachusetts
+          type: string
+        country:
+          description: The country where the elector resides.
+          example: USA
+          type: string
+        nationality:
+          description: nationality of the elector
+          example: American
+          type: string
+        primary_language:
+          description: The primary language spoken by the elector.
+          example: English
+          type: string
+        sex_updated_at:
+          format: date-time
+          type: string
+        nationality_updated_at:
+          format: date-time
+          type: string
+        primary_language_updated_at:
+          format: date-time
+          type: string
+        residence_updated_at:
+          format: date-time
+          type: string
+    Cabinet:
+      properties:
+        data:
+          $ref: '#/components/schemas/Cabinet_data'
+      required:
+      - data
+    CabinetAttributes:
+      properties:
+        profile:
+          $ref: '#/components/schemas/ProfileAttributes'
+        biography:
+          $ref: '#/components/schemas/BiographyAttributes'
+        job_resume:
+          $ref: '#/components/schemas/JobResumeAttributes'
+      required:
+      - biography
+      - job_resume
+      - profile
+    JobResume:
+      properties:
+        data:
+          $ref: '#/components/schemas/JobResume_data'
+      required:
+      - data
+    JobResumeAttributes:
+      properties:
+        degree:
+          description: elector degree
+          type: string
+        industry:
+          description: elector industry
+          type: string
+        income:
+          description: elector income
+          type: string
+        degree_updated_at:
+          description: The date and time when the degree was last updated.
+          example: 2023-10-01T12:00:00Z
+          format: date-time
+          type: string
+        industry_updated_at:
+          description: The date and time when the industry was last updated.
+          example: 2023-10-01T12:00:00Z
+          format: date-time
+          type: string
+        income_updated_at:
+          description: The date and time when the income was last updated.
+          example: 2023-10-01T12:00:00Z
+          format: date-time
+          type: string
+    Profile:
+      properties:
+        data:
+          $ref: '#/components/schemas/Profile_data'
+      required:
+      - data
+    ProfileAttributes:
+      properties:
+        username:
+          description: The username of the elector.
+          example: johndoe
+          type: string
+        pseudonym:
+          description: "The pseudonym of the elector, if applicable."
+          example: John D.
+          type: string
+        description:
+          description: A brief description of the elector.
+          example: John Doe is a seasoned politician with over 20 years of experience
+            in public service...
+          type: string
+        avatar:
+          description: The URL of the elector's avatar image.
+          example: https://example.com/avatars/johndoe.jpg
+          format: uri
+          type: string
+        official:
+          description: Indicates if the elector is an official candidate.
+          example: true
+          type: boolean
+        updated_at:
+          description: The date and time when the profile was last updated.
+          example: 2023-10-01T12:00:00Z
+          format: date-time
+          type: string
+        created_at:
+          description: The date and time when the profile was created.
+          example: 2023-09-01T12:00:00Z
+          format: date-time
+          type: string
+      required:
+      - created_at
+      - official
+      - updated_at
+      - username
+    RefreshToken_data_attributes:
+      properties:
+        refresh_token:
+          description: The refresh token to generate a new access token.
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          type: string
+      required:
+      - refresh_token
+    RefreshToken_data:
+      properties:
+        type:
+          enum:
+          - refresh_token
+          type: string
+        attributes:
+          $ref: '#/components/schemas/RefreshToken_data_attributes'
+      required:
+      - attributes
+      - type
+    CreateUserByAdmin_data_attributes:
+      properties:
+        email:
+          description: The email address of the admin to be created.
+          example: example@example.com
+          type: string
+        role:
+          description: The role of the admin to be created.
+          example: admin
+          type: string
+      required:
+      - email
+      - role
+    CreateUserByAdmin_data:
+      properties:
+        type:
+          enum:
+          - create_admin
+          type: string
+        attributes:
+          $ref: '#/components/schemas/CreateUserByAdmin_data_attributes'
+      required:
+      - attributes
+      - type
     TokensPair_data_attributes:
       properties:
         access_token:
@@ -612,25 +816,6 @@ components:
           type: string
         attributes:
           $ref: '#/components/schemas/TokensPair_data_attributes'
-      required:
-      - attributes
-      - type
-    RefreshToken_data_attributes:
-      properties:
-        refresh_token:
-          description: The refresh token to generate a new access token.
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-          type: string
-      required:
-      - refresh_token
-    RefreshToken_data:
-      properties:
-        type:
-          enum:
-          - refresh_token
-          type: string
-        attributes:
-          $ref: '#/components/schemas/RefreshToken_data_attributes'
       required:
       - attributes
       - type
@@ -783,3 +968,121 @@ components:
       - meta
       - status
       - title
+    UpdateOwnProfile_data_attributes:
+      properties:
+        username:
+          description: The username of the elector.
+          example: johndoe
+          type: string
+        pseudonym:
+          description: The pseudonym of the elector.
+          example: John D.
+          type: string
+        description:
+          description: A brief description of the elector.
+          example: John Doe is a seasoned politician with over 20 years of experience
+            in public service...
+          type: string
+        avatar:
+          description: The URL of the elector's avatar image.
+          example: https://example.com/avatars/johndoe.jpg
+          format: uri
+          type: string
+    UpdateOwnProfile_data:
+      properties:
+        id:
+          description: User ID of the elector.
+          type: string
+        type:
+          enum:
+          - update_own_profile
+          type: string
+        attributes:
+          $ref: '#/components/schemas/UpdateOwnProfile_data_attributes'
+      required:
+      - attributes
+      - id
+      - type
+    UpdateProfileByAdmin_data_attributes:
+      properties:
+        pseudonym:
+          type: boolean
+        description:
+          type: boolean
+        avatar:
+          type: boolean
+    UpdateProfileByAdmin_data:
+      properties:
+        id:
+          description: User ID of the elector.
+          type: string
+        type:
+          enum:
+          - update_profile_by_admin
+          type: string
+        attributes:
+          $ref: '#/components/schemas/UpdateProfileByAdmin_data_attributes'
+      required:
+      - attributes
+      - id
+      - type
+    Biography_data:
+      properties:
+        id:
+          description: User ID of the elector.
+          type: string
+        type:
+          enum:
+          - biography
+          type: string
+        attributes:
+          $ref: '#/components/schemas/BiographyAttributes'
+      required:
+      - attributes
+      - id
+      - type
+    Cabinet_data:
+      properties:
+        id:
+          description: User ID of the elector.
+          type: string
+        type:
+          enum:
+          - cabinet
+          type: string
+        attributes:
+          $ref: '#/components/schemas/CabinetAttributes'
+      required:
+      - attributes
+      - id
+      - type
+    JobResume_data:
+      properties:
+        id:
+          description: User ID of the elector.
+          type: string
+        type:
+          enum:
+          - job_resume
+          type: string
+        attributes:
+          $ref: '#/components/schemas/JobResumeAttributes'
+      required:
+      - attributes
+      - id
+      - type
+    Profile_data:
+      properties:
+        id:
+          description: User ID of the elector.
+          type: string
+        type:
+          enum:
+          - profile
+          type: string
+        attributes:
+          $ref: '#/components/schemas/ProfileAttributes'
+      required:
+      - attributes
+      - id
+      - type

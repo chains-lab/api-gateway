@@ -4,7 +4,8 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/chains-lab/proto-storage/gen/go/sso"
+	elcab "github.com/chains-lab/proto-storage/gen/go/svc/electorcab"
+	"github.com/chains-lab/proto-storage/gen/go/svc/sso"
 	"github.com/sirupsen/logrus"
 )
 
@@ -13,7 +14,10 @@ type ctxKey int
 const (
 	LogCtxKey ctxKey = iota
 
-	ChainsAutHCtxKey
+	ChainsSsoUserCtxKey
+	ChainsSsoAdminCtxKey
+	ChainsElectorCabUserCtxKey
+	ChainsElectorCabAdminCtxKey
 )
 
 func CtxMiddleWare(extenders ...func(context.Context) context.Context) func(http.Handler) http.Handler {
@@ -34,8 +38,26 @@ func CtxLog(log *logrus.Logger) func(context.Context) context.Context {
 	}
 }
 
-func ChainsAuthCtx(service sso.ServiceClient) func(context.Context) context.Context {
+func ChainsSsoSvcAdminCtx(service sso.AdminServiceClient) func(context.Context) context.Context {
 	return func(ctx context.Context) context.Context {
-		return context.WithValue(ctx, ChainsAutHCtxKey, service)
+		return context.WithValue(ctx, ChainsSsoAdminCtxKey, service)
+	}
+}
+
+func ChainsSsoSvcUserCtx(service sso.UserServiceClient) func(context.Context) context.Context {
+	return func(ctx context.Context) context.Context {
+		return context.WithValue(ctx, ChainsSsoUserCtxKey, service)
+	}
+}
+
+func ChainsElectorCabSvcUserCtx(service elcab.UserServiceClient) func(context.Context) context.Context {
+	return func(ctx context.Context) context.Context {
+		return context.WithValue(ctx, ChainsElectorCabUserCtxKey, service)
+	}
+}
+
+func ChainsElectorCabSvcAdminCtx(service elcab.AdminServiceClient) func(context.Context) context.Context {
+	return func(ctx context.Context) context.Context {
+		return context.WithValue(ctx, ChainsElectorCabAdminCtxKey, service)
 	}
 }

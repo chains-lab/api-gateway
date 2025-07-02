@@ -6,8 +6,8 @@ import (
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
 	"github.com/chains-lab/gatekit/tokens"
-	"github.com/chains-lab/proto-storage/gen/go/sso"
 	"github.com/google/uuid"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 func Logout(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +29,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = AuthClient(r).Logout(signature, &sso.Empty{})
+	_, err = SsoUserClient(r).Logout(signature, &emptypb.Empty{})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error logging out user %s", initiator.UserID)
 		renderer.RenderGRPCError(w, requestID, err)

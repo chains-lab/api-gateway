@@ -61,7 +61,7 @@ func (a *UserAPIService) ChainsAuthV1OwnGetExecute(r ApiChainsAuthV1OwnGetReques
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/chains/sso/v1/own"
+	localVarPath := localBasePath + "/chains/auth/v1/own"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
