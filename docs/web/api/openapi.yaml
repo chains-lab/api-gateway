@@ -14,16 +14,16 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/User"
           description: User successfully get
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
           description: You must provide a valid authorization params.
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
           description: User not found
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: Get user
       tags:
       - User
@@ -35,23 +35,23 @@ paths:
         content:
           application/vnd.api+json:
             schema:
-              $ref: '#/components/schemas/RefreshToken'
+              $ref: "#/components/schemas/RefreshToken"
         required: true
       responses:
         "200":
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/TokensPair'
+                $ref: "#/components/schemas/TokensPair"
           description: Access token successfully refreshed.
         "400":
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "409":
-          $ref: '#/components/responses/Conflict'
+          $ref: "#/components/responses/Conflict"
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: Refresh Access Token
       tags:
       - Sessions
@@ -70,7 +70,7 @@ paths:
                 type: string
               style: simple
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       tags:
       - Login
   /re-news/chains/auth/v1/own/callback:
@@ -81,12 +81,12 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/TokensPair'
+                $ref: "#/components/schemas/TokensPair"
           description: User successfully login
         "400":
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       tags:
       - Login
   /re-news/chains/auth/v1/own/logout:
@@ -97,15 +97,15 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/TokensPair'
+                $ref: "#/components/schemas/TokensPair"
           description: User successfully logout
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
           description: User not found or session not found
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       tags:
       - Login
   /re-news/chains/auth/v1/own/sessions:
@@ -116,14 +116,14 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/SessionsCollection'
+                $ref: "#/components/schemas/SessionsCollection"
           description: successfully
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: Terminate user's sessions
       tags:
       - Sessions
@@ -134,12 +134,12 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/SessionsCollection'
+                $ref: "#/components/schemas/SessionsCollection"
           description: Successfully
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: Get user's sessions
       tags:
       - Sessions
@@ -159,14 +159,14 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/SessionsCollection'
+                $ref: "#/components/schemas/SessionsCollection"
           description: successfully
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: Terminate user's session
       tags:
       - Sessions
@@ -185,14 +185,14 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Session'
+                $ref: "#/components/schemas/Session"
           description: User sessions successfully get
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: Get user's session
       tags:
       - Sessions
@@ -220,20 +220,20 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/User"
           description: User successfully get
         "400":
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
           description: Invalid request parameters
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
           description: Unauthorized access
         "403":
-          $ref: '#/components/responses/Forbidden'
+          $ref: "#/components/responses/Forbidden"
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: admin get user
       tags:
       - Admin
@@ -283,20 +283,20 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/User"
           description: User successfully updated
         "400":
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "403":
-          $ref: '#/components/responses/Forbidden'
+          $ref: "#/components/responses/Forbidden"
           description: Haven't permission to update user
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
           description: User not found
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: admin role update
       tags:
       - Admin
@@ -315,15 +315,15 @@ paths:
         "204":
           description: Delete user sessions successfully
         "400":
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "403":
-          $ref: '#/components/responses/Forbidden'
+          $ref: "#/components/responses/Forbidden"
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: admin delete users sessions
       tags:
       - Admin
@@ -342,18 +342,18 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/SessionsCollection'
+                $ref: "#/components/schemas/SessionsCollection"
           description: User sessions successfully get
         "400":
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "403":
-          $ref: '#/components/responses/Forbidden'
+          $ref: "#/components/responses/Forbidden"
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: admin get sessions
       tags:
       - Admin
@@ -387,17 +387,17 @@ paths:
         "204":
           description: Delete user session successfully
         "400":
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "403":
-          $ref: '#/components/responses/Forbidden'
+          $ref: "#/components/responses/Forbidden"
           description: Haven't permission to delete user session
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
           description: User not found or session not found
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: admin delete user session
       tags:
       - Admin
@@ -423,20 +423,20 @@ paths:
           content:
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Session'
+                $ref: "#/components/schemas/Session"
           description: User sessions successfully get
         "400":
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         "401":
-          $ref: '#/components/responses/Unauthorized'
+          $ref: "#/components/responses/Unauthorized"
         "403":
-          $ref: '#/components/responses/Forbidden'
+          $ref: "#/components/responses/Forbidden"
           description: Haven't permission to get user session
         "404":
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
           description: User not found
         "500":
-          $ref: '#/components/responses/Internal'
+          $ref: "#/components/responses/Internal"
       summary: admin get session
       tags:
       - Admin
@@ -461,79 +461,79 @@ components:
       content:
         application/vnd.api+json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: "#/components/schemas/Errors"
       description: You must provide a valid authorization params.
     NotFound:
       content:
         application/vnd.api+json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: "#/components/schemas/Errors"
       description: Requested resource does not exist.
     Forbidden:
       content:
         application/vnd.api+json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: "#/components/schemas/Errors"
       description: Forbidden
     Internal:
       content:
         application/vnd.api+json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: "#/components/schemas/Errors"
       description: Internal server error
     Conflict:
       content:
         application/vnd.api+json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: "#/components/schemas/Errors"
       description: Conflict
     TooManyRequests:
       content:
         application/vnd.api+json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: "#/components/schemas/Errors"
       description: Too many requests
     UnsupportedMediaType:
       content:
         application/vnd.api+json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: "#/components/schemas/Errors"
       description: Unsupported Media Type
     BadRequest:
       content:
         application/vnd.api+json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: "#/components/schemas/Errors"
       description: bad request
   schemas:
     RefreshToken:
       properties:
         data:
-          $ref: '#/components/schemas/RefreshToken_data'
+          $ref: "#/components/schemas/RefreshToken_data"
       required:
       - data
     CreateUserByAdmin:
       properties:
         data:
-          $ref: '#/components/schemas/CreateUserByAdmin_data'
+          $ref: "#/components/schemas/CreateUserByAdmin_data"
       required:
       - data
     TokensPair:
       properties:
         data:
-          $ref: '#/components/schemas/TokensPair_data'
+          $ref: "#/components/schemas/TokensPair_data"
       required:
       - data
     AccessToken:
       properties:
         data:
-          $ref: '#/components/schemas/AccessToken_data'
+          $ref: "#/components/schemas/AccessToken_data"
       required:
       - data
     Session:
       properties:
         data:
-          $ref: '#/components/schemas/SessionData'
+          $ref: "#/components/schemas/SessionData"
       required:
       - data
     SessionData:
@@ -547,7 +547,7 @@ components:
           - user_session
           type: string
         attributes:
-          $ref: '#/components/schemas/SessionAttributes'
+          $ref: "#/components/schemas/SessionAttributes"
       required:
       - attributes
       - id
@@ -581,13 +581,13 @@ components:
     SessionsCollection:
       properties:
         data:
-          $ref: '#/components/schemas/SessionsCollection_data'
+          $ref: "#/components/schemas/SessionsCollection_data"
       required:
       - data
     User:
       properties:
         data:
-          $ref: '#/components/schemas/User_data'
+          $ref: "#/components/schemas/User_data"
       required:
       - data
     Errors:
@@ -595,26 +595,32 @@ components:
         errors:
           description: Non empty array of errors occurred during request processing
           items:
-            $ref: '#/components/schemas/Errors_errors_inner'
+            $ref: "#/components/schemas/Errors_errors_inner"
           type: array
       required:
       - errors
     UpdateOwnProfile:
       properties:
         data:
-          $ref: '#/components/schemas/UpdateOwnProfile_data'
+          $ref: "#/components/schemas/UpdateOwnProfile_data"
       required:
       - data
     UpdateProfileByAdmin:
       properties:
         data:
-          $ref: '#/components/schemas/UpdateProfileByAdmin_data'
+          $ref: "#/components/schemas/UpdateProfileByAdmin_data"
+      required:
+      - data
+    CreateOwnProfile:
+      properties:
+        data:
+          $ref: "#/components/schemas/CreateOwnProfile_data"
       required:
       - data
     Biography:
       properties:
         data:
-          $ref: '#/components/schemas/Biography_data'
+          $ref: "#/components/schemas/Biography_data"
       required:
       - data
     BiographyAttributes:
@@ -662,17 +668,17 @@ components:
     Cabinet:
       properties:
         data:
-          $ref: '#/components/schemas/Cabinet_data'
+          $ref: "#/components/schemas/Cabinet_data"
       required:
       - data
     CabinetAttributes:
       properties:
         profile:
-          $ref: '#/components/schemas/ProfileAttributes'
+          $ref: "#/components/schemas/ProfileAttributes"
         biography:
-          $ref: '#/components/schemas/BiographyAttributes'
+          $ref: "#/components/schemas/BiographyAttributes"
         job_resume:
-          $ref: '#/components/schemas/JobResumeAttributes'
+          $ref: "#/components/schemas/JobResumeAttributes"
       required:
       - biography
       - job_resume
@@ -680,7 +686,7 @@ components:
     JobResume:
       properties:
         data:
-          $ref: '#/components/schemas/JobResume_data'
+          $ref: "#/components/schemas/JobResume_data"
       required:
       - data
     JobResumeAttributes:
@@ -712,7 +718,7 @@ components:
     Profile:
       properties:
         data:
-          $ref: '#/components/schemas/Profile_data'
+          $ref: "#/components/schemas/Profile_data"
       required:
       - data
     ProfileAttributes:
@@ -769,7 +775,7 @@ components:
           - refresh_token
           type: string
         attributes:
-          $ref: '#/components/schemas/RefreshToken_data_attributes'
+          $ref: "#/components/schemas/RefreshToken_data_attributes"
       required:
       - attributes
       - type
@@ -793,7 +799,7 @@ components:
           - create_admin
           type: string
         attributes:
-          $ref: '#/components/schemas/CreateUserByAdmin_data_attributes'
+          $ref: "#/components/schemas/CreateUserByAdmin_data_attributes"
       required:
       - attributes
       - type
@@ -815,7 +821,7 @@ components:
           - tokens_pair
           type: string
         attributes:
-          $ref: '#/components/schemas/TokensPair_data_attributes'
+          $ref: "#/components/schemas/TokensPair_data_attributes"
       required:
       - attributes
       - type
@@ -834,7 +840,7 @@ components:
           - access_token
           type: string
         attributes:
-          $ref: '#/components/schemas/AccessToken_data_attributes'
+          $ref: "#/components/schemas/AccessToken_data_attributes"
       required:
       - attributes
       - type
@@ -842,7 +848,7 @@ components:
       properties:
         sessions:
           items:
-            $ref: '#/components/schemas/SessionData'
+            $ref: "#/components/schemas/SessionData"
           type: array
       required:
       - sessions
@@ -853,7 +859,7 @@ components:
           - user_sessions
           type: string
         attributes:
-          $ref: '#/components/schemas/SessionsCollection_data_attributes'
+          $ref: "#/components/schemas/SessionsCollection_data_attributes"
       required:
       - attributes
       - type
@@ -892,7 +898,7 @@ components:
           - user
           type: string
         attributes:
-          $ref: '#/components/schemas/User_data_attributes'
+          $ref: "#/components/schemas/User_data_attributes"
       required:
       - attributes
       - id
@@ -961,7 +967,7 @@ components:
           example: Request body was expected
           type: string
         meta:
-          $ref: '#/components/schemas/Errors_errors_inner_meta'
+          $ref: "#/components/schemas/Errors_errors_inner_meta"
       required:
       - code
       - detail
@@ -998,7 +1004,7 @@ components:
           - update_own_profile
           type: string
         attributes:
-          $ref: '#/components/schemas/UpdateOwnProfile_data_attributes'
+          $ref: "#/components/schemas/UpdateOwnProfile_data_attributes"
       required:
       - attributes
       - id
@@ -1021,7 +1027,44 @@ components:
           - update_profile_by_admin
           type: string
         attributes:
-          $ref: '#/components/schemas/UpdateProfileByAdmin_data_attributes'
+          $ref: "#/components/schemas/UpdateProfileByAdmin_data_attributes"
+      required:
+      - attributes
+      - id
+      - type
+    CreateOwnProfile_data_attributes:
+      properties:
+        username:
+          description: The username of the elector.
+          example: johndoe
+          type: string
+        pseudonym:
+          description: The pseudonym of the elector.
+          example: John D.
+          type: string
+        description:
+          description: A brief description of the elector.
+          example: John Doe is a seasoned politician with over 20 years of experience
+            in public service...
+          type: string
+        avatar:
+          description: The URL of the elector's avatar image.
+          example: https://example.com/avatars/johndoe.jpg
+          format: uri
+          type: string
+      required:
+      - username
+    CreateOwnProfile_data:
+      properties:
+        id:
+          description: User ID of the elector.
+          type: string
+        type:
+          enum:
+          - create_own_profile
+          type: string
+        attributes:
+          $ref: "#/components/schemas/CreateOwnProfile_data_attributes"
       required:
       - attributes
       - id
@@ -1036,7 +1079,7 @@ components:
           - biography
           type: string
         attributes:
-          $ref: '#/components/schemas/BiographyAttributes'
+          $ref: "#/components/schemas/BiographyAttributes"
       required:
       - attributes
       - id
@@ -1051,7 +1094,7 @@ components:
           - cabinet
           type: string
         attributes:
-          $ref: '#/components/schemas/CabinetAttributes'
+          $ref: "#/components/schemas/CabinetAttributes"
       required:
       - attributes
       - id
@@ -1066,7 +1109,7 @@ components:
           - job_resume
           type: string
         attributes:
-          $ref: '#/components/schemas/JobResumeAttributes'
+          $ref: "#/components/schemas/JobResumeAttributes"
       required:
       - attributes
       - id
@@ -1081,7 +1124,7 @@ components:
           - profile
           type: string
         attributes:
-          $ref: '#/components/schemas/ProfileAttributes'
+          $ref: "#/components/schemas/ProfileAttributes"
       required:
       - attributes
       - id

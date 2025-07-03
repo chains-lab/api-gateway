@@ -18,6 +18,9 @@ docs/BiographyData.md
 docs/Cabinet.md
 docs/CabinetAttributes.md
 docs/CabinetData.md
+docs/CreateOwnProfile.md
+docs/CreateOwnProfileData.md
+docs/CreateOwnProfileDataAttributes.md
 docs/CreateUserByAdmin.md
 docs/CreateUserByAdminData.md
 docs/CreateUserByAdminDataAttributes.md
@@ -66,6 +69,9 @@ model_biography_data.go
 model_cabinet.go
 model_cabinet_attributes.go
 model_cabinet_data.go
+model_create_own_profile.go
+model_create_own_profile_data.go
+model_create_own_profile_data_attributes.go
 model_create_user_by_admin.go
 model_create_user_by_admin_data.go
 model_create_user_by_admin_data_attributes.go

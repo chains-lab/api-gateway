@@ -50,12 +50,12 @@ func (a Api) Run(ctx context.Context) {
 		),
 	)
 
-	ssoSvc := sso.Router(r, a.cfg)
-	electorcabSvc := cabinet.Router(r, a.cfg)
+	r.Route("/sso", func(r chi.Router) {
+		sso.Router(r, a.cfg)
+	})
 
-	r.Route("/api", func(r chi.Router) {
-		r.Mount("/sso", ssoSvc)
-		r.Mount("/elector-cab", electorcabSvc)
+	r.Route("/elector-cab", func(r chi.Router) {
+		cabinet.Router(r, a.cfg)
 	})
 
 	a.Start(ctx)

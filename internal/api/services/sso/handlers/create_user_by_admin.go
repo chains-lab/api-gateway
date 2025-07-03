@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func AdminCreateUser(w http.ResponseWriter, r *http.Request) {
+func CreateUserByAdmin(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	initiator, err := tokens.GetUserTokenData(r.Context())
@@ -42,7 +42,7 @@ func AdminCreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := SsoAdminClient(r).CreateAdminByAdmin(signature, &sso.CreateAdminByAdminRequest{
+	user, err := SsoAdminClient(r).CreateUserByAdmin(signature, &sso.CreateUserByAdminRequest{
 		Email: email,
 		Role:  role,
 	})

@@ -5,7 +5,7 @@ import (
 	"github.com/chains-lab/proto-storage/gen/go/svc/electorcab"
 )
 
-func ProfileData(profile *electorcab.Profile) resources.ProfileData {
+func Profile(profile *electorcab.Profile) resources.ProfileData {
 	return resources.ProfileData{
 		Id:         profile.UserId,
 		Type:       "profile",

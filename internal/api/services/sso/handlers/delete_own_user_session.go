@@ -10,7 +10,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func DeleteSession(w http.ResponseWriter, r *http.Request) {
+func DeleteOwnUserSession(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	initiator, err := tokens.GetUserTokenData(r.Context())

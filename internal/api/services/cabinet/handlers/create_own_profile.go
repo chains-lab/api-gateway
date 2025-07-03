@@ -6,13 +6,12 @@ import (
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
 	"github.com/chains-lab/api-gateway/internal/api/services/cabinet/requests"
-	"github.com/chains-lab/api-gateway/internal/api/services/cabinet/responses"
 	"github.com/chains-lab/gatekit/tokens"
 	"github.com/chains-lab/proto-storage/gen/go/svc/electorcab"
 	"github.com/google/uuid"
 )
 
-func UpdateOwnProfile(w http.ResponseWriter, r *http.Request) {
+func CreateOwnProfile(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	initiator, err := tokens.GetUserTokenData(r.Context())
@@ -23,9 +22,9 @@ func UpdateOwnProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	req, err := requests.NewUpdateOwnProfile(r)
+	req, err := requests.NewCreateOwnProfile(r)
 	if err != nil {
-		Log(r, requestID).WithError(err).Error("error parsing request body for updating own profile")
+		Log(r, requestID).WithError(err).Errorf("error decoding request body for own profile creation")
 		renderer.BadRequestValidate(w, requestID, err)
 
 		return
@@ -33,23 +32,24 @@ func UpdateOwnProfile(w http.ResponseWriter, r *http.Request) {
 
 	signature, err := signer.ServiceToken(r, requestID, []string{"elector-cab-svc"})
 	if err != nil {
-		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", initiator.UserID)
+		Log(r, requestID).WithError(err).Errorf("error signing service token for user")
 		renderer.InternalError(w, requestID)
 
 		return
 	}
 
-	res, err := ElectorCabUserClient(r).UpdateOwnProfile(signature, &electorcab.UpdateOwnProfileRequest{
+	profile, err := ElectorCabUserClient(r).CreateOwnProfile(signature, &electorcab.CreateProfilrRequest{
+		Username:    req.Data.Attributes.Username,
 		Pseudonym:   req.Data.Attributes.Pseudonym,
 		Description: req.Data.Attributes.Description,
 		Avatar:      req.Data.Attributes.Avatar,
 	})
 	if err != nil {
-		Log(r, requestID).WithError(err).Errorf("error updating own profile for user %s", initiator.UserID)
+		Log(r, requestID).WithError(err).Error("error creating own profile")
 		renderer.RenderGRPCError(w, requestID, err)
 
 		return
 	}
 
-	renderer.Render(w, responses.Profile(res))
+	Log(r, requestID).Infof("user %s created own profile with username: %s", initiator.UserID, profile.Username)
 }

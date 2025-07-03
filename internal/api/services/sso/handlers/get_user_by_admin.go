@@ -10,7 +10,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func AdminGetUser(w http.ResponseWriter, r *http.Request) {
+func GetUserByAdmin(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	userID, err := uuid.Parse(r.URL.Query().Get("user_id"))

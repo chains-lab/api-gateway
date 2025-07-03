@@ -10,7 +10,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func OwnGetSession(w http.ResponseWriter, r *http.Request) {
+func GetOwnUserSession(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})

@@ -9,7 +9,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func OwnTerminateSessions(w http.ResponseWriter, r *http.Request) {
+func DeleteOwnUserSessions(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})

@@ -8,72 +8,64 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func Router(r chi.Router, cfg config.Config) chi.Router {
+func Router(r chi.Router, cfg config.Config) {
 	auth := middleware.AuthMdl(cfg.JWT.User.AccessToken.SecretKey, cfg.JWT.Service.SecretKey)
 	admin := middleware.RolesGrant(cfg.JWT.User.AccessToken.SecretKey, roles.Admin, roles.SuperUser)
 
-	r.Route("/svc", func(r chi.Router) {
-		r.Route("/cabinets", func(r chi.Router) {
-			r.With(auth).Post("/", handlers.CreateOwnCabinet)
+	r.Route("/cabinets", func(r chi.Router) {
+		r.With(auth).Post("/", handlers.CreateOwnProfile)
 
-			r.Route("/own", func(r chi.Router) {
-				r.Use(auth)
-
-				r.Get("/", handlers.GetOwnCabinet)
-			})
-
-			r.Get("/", handlers.GetCabinet)
-		})
-
-		r.Route("/profile", func(r chi.Router) {
-			r.Route("/own", func(r chi.Router) {
-				r.Use(auth)
-
-				r.Patch("/username/{username}", handlers.UpdateOwnUsername)
-
-				r.Patch("/", handlers.UpdateOwnProfile)
-				r.Get("/", handlers.GetOwnProfile)
-			})
-
-			r.Get("/search", handlers.SearchProfile)
-			r.Get("/", handlers.GetProfile)
-		})
-
-		r.Route("/biographies", func(r chi.Router) {
+		r.Route("/own", func(r chi.Router) {
 			r.Use(auth)
 
-			r.Patch("/sex/{sex}", handlers.UpdateOwnSex)
-			r.Patch("/birthday/birthday", handlers.UpdateOwnBirthday)
-			r.Patch("/nationality/{nationality}", handlers.UpdateOwnNationality)
-			r.Patch("/primary_language/{primary_language}", handlers.UpdateOwnPrimaryLanguage)
-			r.Patch("/residence/{country}/{region}/{city}", handlers.UpdateOwnResidence)
-
-			r.Get("/", handlers.GetOwnBiography)
+			r.Get("/", handlers.GetOwnCabinet)
 		})
 
-		r.Route("/job_resume", func(r chi.Router) {
+		r.Get("/", handlers.GetCabinet)
+	})
+
+	r.Route("/profile", func(r chi.Router) {
+		r.Route("/own", func(r chi.Router) {
 			r.Use(auth)
 
-			r.Patch("/degree/{degree}", handlers.UpdateOwnDegree)
-			r.Patch("/industry/{industry}", handlers.UpdateOwnIndustry)
-			r.Patch("/income/{income}", handlers.UpdateOwnIncome)
+			r.Patch("/username/{username}", handlers.UpdateOwnUsername)
 
-			r.Get("/", handlers.GetOwnJobResume)
+			r.Patch("/", handlers.UpdateOwnProfile)
+			r.Get("/", handlers.GetOwnProfile)
 		})
 
-		r.Route("/admin", func(r chi.Router) {
-			r.Use(admin)
+		//r.Get("/search", handlers.SearchProfile)
+		r.Get("/", handlers.GetProfile)
+	})
 
-			r.Route("/{cabinet_id}", func(r chi.Router) {
-				r.Route("/profile", func(r chi.Router) {
-					r.Patch("/username", handlers.ResetUsernameByAdmin)
-					r.Patch("/official/{official}", handlers.UpdateOfficialByAdmin)
+	r.Route("/biographies", func(r chi.Router) {
+		r.Use(auth)
 
-					r.Patch("/", handlers.ResetProfileByAdmin)
-				})
+		r.Patch("/sex/{sex}", handlers.UpdateOwnSex)
+		r.Patch("/birthday/birthday", handlers.UpdateOwnBirthday)
+		r.Patch("/nationality/{nationality}", handlers.UpdateOwnNationality)
+		r.Patch("/primary_language/{primary_language}", handlers.UpdateOwnPrimaryLanguage)
+		r.Patch("/residence/{country}/{region}/{city}", handlers.UpdateOwnResidence)
+	})
+
+	r.Route("/job_resume", func(r chi.Router) {
+		r.Use(auth)
+
+		r.Patch("/degree/{degree}", handlers.UpdateOwnDegree)
+		r.Patch("/industry/{industry}", handlers.UpdateOwnIndustry)
+		r.Patch("/income/{income}", handlers.UpdateOwnIncome)
+	})
+
+	r.Route("/admin", func(r chi.Router) {
+		r.Use(admin)
+
+		r.Route("/{cabinet_id}", func(r chi.Router) {
+			r.Route("/profile", func(r chi.Router) {
+				r.Patch("/username", handlers.ResetUsernameByAdmin)
+				r.Patch("/official/{official}", handlers.UpdateOfficialByAdmin)
+
+				r.Patch("/", handlers.ResetProfileByAdmin)
 			})
 		})
 	})
-
-	return r
 }

@@ -116,6 +116,8 @@ components:
       $ref: './spec/components/schemas/elector-cab-svc/requests/UpdateOwnProfile.yaml'
     UpdateProfileByAdmin:
       $ref: './spec/components/schemas/elector-cab-svc/requests/ResetProfileByAdmin.yaml'
+    CreateOwnProfile:
+      $ref: './spec/components/schemas/elector-cab-svc/requests/CreateOwnProfile.yaml'
 
     # responses
     Biography:

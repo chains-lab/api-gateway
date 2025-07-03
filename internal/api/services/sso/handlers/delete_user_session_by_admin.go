@@ -11,7 +11,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func AdminDeleteUserSessions(w http.ResponseWriter, r *http.Request) {
+func DeleteUserSessionByAdmin(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	initiator, err := tokens.GetUserTokenData(r.Context())

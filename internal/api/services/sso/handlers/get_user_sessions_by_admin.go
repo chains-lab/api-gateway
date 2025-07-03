@@ -11,7 +11,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func AdminGetUserSessions(w http.ResponseWriter, r *http.Request) {
+func GetUserSessionsByAdmin(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	userID, err := uuid.Parse(chi.URLParam(r, "user_id"))
