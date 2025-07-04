@@ -23,7 +23,6 @@ var _ MappedNullable = &CabinetAttributes{}
 type CabinetAttributes struct {
 	Profile ProfileAttributes `json:"profile"`
 	Biography BiographyAttributes `json:"biography"`
-	JobResume JobResumeAttributes `json:"job_resume"`
 }
 
 type _CabinetAttributes CabinetAttributes
@@ -32,11 +31,10 @@ type _CabinetAttributes CabinetAttributes
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCabinetAttributes(profile ProfileAttributes, biography BiographyAttributes, jobResume JobResumeAttributes) *CabinetAttributes {
+func NewCabinetAttributes(profile ProfileAttributes, biography BiographyAttributes) *CabinetAttributes {
 	this := CabinetAttributes{}
 	this.Profile = profile
 	this.Biography = biography
-	this.JobResume = jobResume
 	return &this
 }
 
@@ -96,30 +94,6 @@ func (o *CabinetAttributes) SetBiography(v BiographyAttributes) {
 	o.Biography = v
 }
 
-// GetJobResume returns the JobResume field value
-func (o *CabinetAttributes) GetJobResume() JobResumeAttributes {
-	if o == nil {
-		var ret JobResumeAttributes
-		return ret
-	}
-
-	return o.JobResume
-}
-
-// GetJobResumeOk returns a tuple with the JobResume field value
-// and a boolean to check if the value has been set.
-func (o *CabinetAttributes) GetJobResumeOk() (*JobResumeAttributes, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.JobResume, true
-}
-
-// SetJobResume sets field value
-func (o *CabinetAttributes) SetJobResume(v JobResumeAttributes) {
-	o.JobResume = v
-}
-
 func (o CabinetAttributes) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -132,7 +106,6 @@ func (o CabinetAttributes) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["profile"] = o.Profile
 	toSerialize["biography"] = o.Biography
-	toSerialize["job_resume"] = o.JobResume
 	return toSerialize, nil
 }
 
@@ -143,7 +116,6 @@ func (o *CabinetAttributes) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"profile",
 		"biography",
-		"job_resume",
 	}
 
 	allProperties := make(map[string]interface{})

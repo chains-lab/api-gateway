@@ -8,5 +8,3 @@ properties:
     $ref: "./ProfileAttributes.yaml"
   biography:
     $ref: "./BiographyAttributes.yaml"
-  job_resume:
-    $ref: "./JobResumeAttributes.yaml"

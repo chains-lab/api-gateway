@@ -5,7 +5,6 @@ import (
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/api-gateway/internal/api/services/cabinet/responses"
 	"github.com/chains-lab/gatekit/tokens"
 	"github.com/chains-lab/proto-storage/gen/go/svc/electorcab"
 	"github.com/go-chi/chi/v5"
@@ -33,7 +32,7 @@ func UpdateOwnBirthday(w http.ResponseWriter, r *http.Request) {
 
 	birthday := chi.URLParam(r, "birthday")
 
-	bio, err := ElectorCabUserClient(r).UpdateOwnBirthday(signature, &electorcab.UpdateOwnBirthdayRequest{
+	_, err = ElectorCabUserClient(r).UpdateOwnBirthday(signature, &electorcab.UpdateOwnBirthdayRequest{
 		Birthday: birthday,
 	})
 	if err != nil {
@@ -43,5 +42,5 @@ func UpdateOwnBirthday(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	renderer.Render(w, responses.Biography(bio))
+	renderer.Render(w, http.StatusAccepted)
 }

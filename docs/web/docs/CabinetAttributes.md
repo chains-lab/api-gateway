@@ -6,13 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Profile** | [**ProfileAttributes**](ProfileAttributes.md) |  | 
 **Biography** | [**BiographyAttributes**](BiographyAttributes.md) |  | 
-**JobResume** | [**JobResumeAttributes**](JobResumeAttributes.md) |  | 
 
 ## Methods
 
 ### NewCabinetAttributes
 
-`func NewCabinetAttributes(profile ProfileAttributes, biography BiographyAttributes, jobResume JobResumeAttributes, ) *CabinetAttributes`
+`func NewCabinetAttributes(profile ProfileAttributes, biography BiographyAttributes, ) *CabinetAttributes`
 
 NewCabinetAttributes instantiates a new CabinetAttributes object
 This constructor will assign default values to properties that have it defined,
@@ -65,26 +64,6 @@ and a boolean to check if the value has been set.
 `func (o *CabinetAttributes) SetBiography(v BiographyAttributes)`
 
 SetBiography sets Biography field to given value.
-
-
-### GetJobResume
-
-`func (o *CabinetAttributes) GetJobResume() JobResumeAttributes`
-
-GetJobResume returns the JobResume field if non-nil, zero value otherwise.
-
-### GetJobResumeOk
-
-`func (o *CabinetAttributes) GetJobResumeOk() (*JobResumeAttributes, bool)`
-
-GetJobResumeOk returns a tuple with the JobResume field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetJobResume
-
-`func (o *CabinetAttributes) SetJobResume(v JobResumeAttributes)`
-
-SetJobResume sets JobResume field to given value.
 
 
 

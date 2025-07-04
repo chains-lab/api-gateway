@@ -48,14 +48,6 @@ func Router(r chi.Router, cfg config.Config) {
 		r.Patch("/residence/{country}/{region}/{city}", handlers.UpdateOwnResidence)
 	})
 
-	r.Route("/job_resume", func(r chi.Router) {
-		r.Use(auth)
-
-		r.Patch("/degree/{degree}", handlers.UpdateOwnDegree)
-		r.Patch("/industry/{industry}", handlers.UpdateOwnIndustry)
-		r.Patch("/income/{income}", handlers.UpdateOwnIncome)
-	})
-
 	r.Route("/admin", func(r chi.Router) {
 		r.Use(admin)
 

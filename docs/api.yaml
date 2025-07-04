@@ -128,10 +128,6 @@ components:
       $ref: './spec/components/schemas/elector-cab-svc/responses/Cabinet.yaml'
     CabinetAttributes:
       $ref: './spec/components/schemas/elector-cab-svc/responses/CabinetAttributes.yaml'
-    JobResume:
-      $ref: './spec/components/schemas/elector-cab-svc/responses/JobResume.yaml'
-    JobResumeAttributes:
-      $ref: './spec/components/schemas/elector-cab-svc/responses/JobResumeAttributes.yaml'
     Profile:
       $ref: './spec/components/schemas/elector-cab-svc/responses/Profile.yaml'
     ProfileAttributes:

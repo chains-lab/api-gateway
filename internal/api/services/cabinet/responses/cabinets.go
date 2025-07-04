@@ -12,7 +12,6 @@ func Cabinet(cabinet *electorcab.Cabinet) resources.Cabinet {
 			Type: "cabinet", //TODO
 			Attributes: resources.CabinetAttributes{
 				Biography: biographyAttributes(cabinet.Biography),
-				JobResume: jobResumeAttributes(cabinet.JobResume),
 			},
 		},
 	}

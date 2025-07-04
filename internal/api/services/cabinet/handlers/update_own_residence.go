@@ -5,7 +5,6 @@ import (
 
 	"github.com/chains-lab/api-gateway/internal/api/common/renderer"
 	"github.com/chains-lab/api-gateway/internal/api/common/signer"
-	"github.com/chains-lab/api-gateway/internal/api/services/cabinet/responses"
 	"github.com/chains-lab/gatekit/tokens"
 	"github.com/chains-lab/proto-storage/gen/go/svc/electorcab"
 	"github.com/go-chi/chi/v5"
@@ -35,7 +34,7 @@ func UpdateOwnResidence(w http.ResponseWriter, r *http.Request) {
 	region := chi.URLParam(r, "region")
 	country := chi.URLParam(r, "country")
 
-	bio, err := ElectorCabUserClient(r).UpdateOwnResidence(signature, &electorcab.UpdateOwnResidenceRequest{
+	_, err = ElectorCabUserClient(r).UpdateOwnResidence(signature, &electorcab.UpdateOwnResidenceRequest{
 		City:    city,
 		Region:  region,
 		Country: country,
@@ -47,5 +46,5 @@ func UpdateOwnResidence(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	renderer.Render(w, responses.Biography(bio))
+	renderer.Render(w, http.StatusAccepted)
 }

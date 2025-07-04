@@ -677,44 +677,9 @@ components:
           $ref: "#/components/schemas/ProfileAttributes"
         biography:
           $ref: "#/components/schemas/BiographyAttributes"
-        job_resume:
-          $ref: "#/components/schemas/JobResumeAttributes"
       required:
       - biography
-      - job_resume
       - profile
-    JobResume:
-      properties:
-        data:
-          $ref: "#/components/schemas/JobResume_data"
-      required:
-      - data
-    JobResumeAttributes:
-      properties:
-        degree:
-          description: elector degree
-          type: string
-        industry:
-          description: elector industry
-          type: string
-        income:
-          description: elector income
-          type: string
-        degree_updated_at:
-          description: The date and time when the degree was last updated.
-          example: 2023-10-01T12:00:00Z
-          format: date-time
-          type: string
-        industry_updated_at:
-          description: The date and time when the industry was last updated.
-          example: 2023-10-01T12:00:00Z
-          format: date-time
-          type: string
-        income_updated_at:
-          description: The date and time when the income was last updated.
-          example: 2023-10-01T12:00:00Z
-          format: date-time
-          type: string
     Profile:
       properties:
         data:
@@ -1095,21 +1060,6 @@ components:
           type: string
         attributes:
           $ref: "#/components/schemas/CabinetAttributes"
-      required:
-      - attributes
-      - id
-      - type
-    JobResume_data:
-      properties:
-        id:
-          description: User ID of the elector.
-          type: string
-        type:
-          enum:
-          - job_resume
-          type: string
-        attributes:
-          $ref: "#/components/schemas/JobResumeAttributes"
       required:
       - attributes
       - id
