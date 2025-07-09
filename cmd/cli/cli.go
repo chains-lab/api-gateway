@@ -18,7 +18,7 @@ func Run(args []string) bool {
 		log.Fatalf("failed to load config: %v", err)
 	}
 
-	logger := cfg.GetLogger()
+	logger := cfg.SetupLogger()
 	logger.Info("Starting server...")
 
 	var (

@@ -11,10 +11,8 @@ import (
 )
 
 type ServerConfig struct {
-	Name     string `mapstructure:"name"`
-	Port     string `mapstructure:"port"`
-	BasePath string `mapstructure:"base_path"`
-	TestMode bool   `mapstructure:"test_mode"`
+	Name string `mapstructure:"name"`
+	Port string `mapstructure:"port"`
 }
 
 type LoggerConfig struct {
@@ -45,14 +43,6 @@ type SwaggerConfig struct {
 	Port    string `mapstructure:"port"`
 }
 
-type OAuthConfig struct {
-	Google struct {
-		ClientID     string `mapstructure:"client_id"`
-		ClientSecret string `mapstructure:"client_secret"`
-		RedirectURL  string `mapstructure:"redirect_url"`
-	}
-}
-
 type ServicesConfig struct {
 	SSO struct {
 		Url string `mapstructure:"addresses"`
@@ -66,7 +56,6 @@ type Config struct {
 	Server   ServerConfig   `mapstructure:"server"`
 	Logger   LoggerConfig   `mapstructure:"logger"`
 	JWT      JWTConfig      `mapstructure:"jwt"`
-	OAuth    OAuthConfig    `mapstructure:"oauth"`
 	Swagger  SwaggerConfig  `mapstructure:"swagger"`
 	Services ServicesConfig `mapstructure:"services"`
 }
@@ -90,7 +79,7 @@ func LoadConfig() (Config, error) {
 	return config, nil
 }
 
-func (c *Config) GetLogger() *logrus.Logger {
+func (c *Config) SetupLogger() *logrus.Logger {
 	logger := logrus.New()
 
 	lvl, err := logrus.ParseLevel(strings.ToLower(c.Logger.Level))

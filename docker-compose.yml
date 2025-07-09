@@ -1,0 +1,18 @@
+services:
+  api-gateway-svc:
+    build: .
+    container_name: elector-cab
+    environment:
+      - KV_VIPER_FILE=./config_docker.yaml.yaml
+    ports:
+      - "8000:8000"
+    networks:
+      - chains-net
+
+volumes:
+  pgdata:
+  bundle:
+
+networks:
+  chains-net:
+    external: true

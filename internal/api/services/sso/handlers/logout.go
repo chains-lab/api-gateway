@@ -21,7 +21,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
+	signature, err := signer.SignWithUser(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", initiator.UserID)
 		renderer.InternalError(w, requestID)

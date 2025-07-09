@@ -31,7 +31,7 @@ func Refresh(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
+	signature, err := signer.SignWithoutUser(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for own session termination")
 		renderer.InternalError(w, requestID)

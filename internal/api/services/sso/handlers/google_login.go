@@ -13,7 +13,7 @@ func GoogleLogin(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
 	//TODO change
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
+	signature, err := signer.SignWithoutUser(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for new user")
 		renderer.InternalError(w, requestID)

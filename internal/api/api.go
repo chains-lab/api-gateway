@@ -22,7 +22,7 @@ type Api struct {
 }
 
 func NewAPI(cfg config.Config) Api {
-	logger := cfg.GetLogger().WithField("module", "api")
+	logger := cfg.SetupLogger().WithField("module", "api")
 	router := chi.NewRouter()
 	server := &http.Server{
 		Addr:    cfg.Server.Port,
@@ -42,7 +42,7 @@ func (a Api) Run(ctx context.Context) {
 
 	r.Use(
 		middleware.CtxMiddleWare(
-			middleware.CtxLog(a.cfg.GetLogger()),
+			middleware.CtxLog(a.cfg.SetupLogger()),
 			middleware.ChainsSsoSvcAdminCtx(grpcclients.SsoSvcAdmin(a.cfg)),
 			middleware.ChainsSsoSvcUserCtx(grpcclients.SsoSvcUser(a.cfg)),
 			middleware.ChainsElectorCabSvcUserCtx(grpcclients.ElectorCabUserSvc(a.cfg)),
@@ -50,12 +50,14 @@ func (a Api) Run(ctx context.Context) {
 		),
 	)
 
-	r.Route("/sso", func(r chi.Router) {
-		sso.Router(r, a.cfg)
-	})
+	r.Route("/v1", func(r chi.Router) {
+		r.Route("/sso", func(r chi.Router) {
+			sso.Router(r, a.cfg)
+		})
 
-	r.Route("/elector-cab", func(r chi.Router) {
-		cabinet.Router(r, a.cfg)
+		r.Route("/elector-cab", func(r chi.Router) {
+			cabinet.Router(r, a.cfg)
+		})
 	})
 
 	a.Start(ctx)
@@ -66,7 +68,7 @@ func (a Api) Run(ctx context.Context) {
 
 func (a Api) Start(ctx context.Context) {
 	go func() {
-		a.log.Info("Starting server...")
+		a.log.Info("Starting server on ", a.server.Addr)
 		if err := a.server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			a.log.Fatalf("Server failed to start: %v", err)
 		}

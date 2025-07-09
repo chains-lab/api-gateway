@@ -13,17 +13,23 @@ func Router(r chi.Router, cfg config.Config) {
 	admin := middleware.RolesGrant(cfg.JWT.User.AccessToken.SecretKey, roles.Admin, roles.SuperUser)
 	superUser := middleware.RolesGrant(cfg.JWT.User.AccessToken.SecretKey, roles.SuperUser)
 
+	r.Route("/google", func(r chi.Router) {
+		r.Route("/login", func(r chi.Router) {
+			r.Get("/", handlers.GoogleLogin)
+			r.Get("/callback", handlers.GoogleCallback)
+		})
+	})
+
 	r.Route("/own", func(r chi.Router) {
-		r.Use(auth)
+		r.With(auth).Get("/", handlers.GetOwnUser)
 
-		r.Get("/", handlers.GetOwnUser)
-
-		r.Get("/login", handlers.GoogleLogin)
-		r.Get("/login_callback", handlers.GoogleCallback)
 		r.Post("/refresh", handlers.Refresh)
-		r.Delete("/logout", handlers.Logout)
+
+		r.With(auth).Delete("/logout", handlers.Logout)
 
 		r.Route("/sessions", func(r chi.Router) {
+			r.Use(auth)
+
 			r.Route("/{session_id}", func(r chi.Router) {
 				r.Get("/", handlers.GetOwnUserSession)
 				r.Delete("/", handlers.DeleteOwnUserSession)

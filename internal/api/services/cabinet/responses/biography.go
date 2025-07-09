@@ -34,17 +34,13 @@ func parseAndFormat(dateStr *string) *time.Time {
 
 func biographyAttributes(biography *electorcab.Biography) resources.BiographyAttributes {
 	return resources.BiographyAttributes{
-		Birthday:        parseAndFormat(biography.Birthday),
-		Sex:             biography.Sex,
-		City:            biography.City,
-		Region:          biography.Region,
-		Country:         biography.Country,
-		Nationality:     biography.Nationality,
-		PrimaryLanguage: biography.PrimaryLanguage,
+		Birthday: parseAndFormat(biography.Birthday),
+		Sex:      biography.Sex,
+		City:     biography.City,
+		Region:   biography.Region,
+		Country:  biography.Country,
 
-		SexUpdatedAt:             parseAndFormat(biography.SexUpdatedAt),
-		NationalityUpdatedAt:     parseAndFormat(biography.NationalityUpdatedAt),
-		PrimaryLanguageUpdatedAt: parseAndFormat(biography.PrimaryLanguageUpdatedAt),
-		ResidenceUpdatedAt:       parseAndFormat(biography.ResidenceUpdatedAt),
+		SexUpdatedAt:       parseAndFormat(biography.SexUpdatedAt),
+		ResidenceUpdatedAt: parseAndFormat(biography.ResidenceUpdatedAt),
 	}
 }

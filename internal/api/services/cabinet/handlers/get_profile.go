@@ -22,7 +22,7 @@ func GetProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"elector-cab-svc"})
+	signature, err := signer.SignWithUser(r, requestID, []string{"elector-cab-svc"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", initiator.UserID)
 		renderer.InternalError(w, requestID)

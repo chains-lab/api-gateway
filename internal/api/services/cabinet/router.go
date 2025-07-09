@@ -43,8 +43,6 @@ func Router(r chi.Router, cfg config.Config) {
 
 		r.Patch("/sex/{sex}", handlers.UpdateOwnSex)
 		r.Patch("/birthday/birthday", handlers.UpdateOwnBirthday)
-		r.Patch("/nationality/{nationality}", handlers.UpdateOwnNationality)
-		r.Patch("/primary_language/{primary_language}", handlers.UpdateOwnPrimaryLanguage)
 		r.Patch("/residence/{country}/{region}/{city}", handlers.UpdateOwnResidence)
 	})
 

@@ -10,6 +10,8 @@ github.com/chains-lab/gatekit v0.0.7 h1:fw+BGV/kR3VIs3kRdBm/PXjKTBOeldeS2paGzmWQ
 github.com/chains-lab/gatekit v0.0.7/go.mod h1:dSDKqJmQg0gYz0OIuZkQPnKEd3xdAYvb8vYZBNr1zRA=
 github.com/chains-lab/proto-storage v0.0.5401 h1:hj6qf5XPABjXgpVlBOtV9BkH0aFgPDZpgcyppL3omp0=
 github.com/chains-lab/proto-storage v0.0.5401/go.mod h1:LRT/DzERSmdJL5HKzKAa8G+2ouFjwmRwaD0wpllY2FU=
+github.com/chains-lab/proto-storage v0.0.5502 h1:SOX68uWwbZ7uQzW59W68u0Rp3NUlp9J1mDBAvDry5AM=
+github.com/chains-lab/proto-storage v0.0.5502/go.mod h1:LRT/DzERSmdJL5HKzKAa8G+2ouFjwmRwaD0wpllY2FU=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

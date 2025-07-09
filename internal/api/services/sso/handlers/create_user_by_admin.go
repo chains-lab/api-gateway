@@ -34,7 +34,7 @@ func CreateUserByAdmin(w http.ResponseWriter, r *http.Request) {
 	email := req.Data.Attributes.Email
 	role := req.Data.Attributes.Role
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
+	signature, err := signer.SignWithUser(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user")
 		renderer.InternalError(w, requestID)

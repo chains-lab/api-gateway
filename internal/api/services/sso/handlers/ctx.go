@@ -18,9 +18,9 @@ func SsoAdminClient(r *http.Request) sso.AdminServiceClient {
 }
 
 func Log(r *http.Request, requestID uuid.UUID) *logrus.Entry {
-	entry, ok := r.Context().Value(middleware.LogCtxKey).(*logrus.Entry)
+	log, ok := r.Context().Value(middleware.LogCtxKey).(*logrus.Logger)
 	if !ok {
-		entry = logrus.NewEntry(logrus.New())
+		panic("log entry not found in context")
 	}
-	return entry.WithField("request_id", requestID)
+	return log.WithField("request_id", requestID.String())
 }

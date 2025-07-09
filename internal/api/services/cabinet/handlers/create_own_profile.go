@@ -30,7 +30,7 @@ func CreateOwnProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"elector-cab-svc"})
+	signature, err := signer.SignWithUser(r, requestID, []string{"elector-cab-svc"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user")
 		renderer.InternalError(w, requestID)
@@ -38,7 +38,7 @@ func CreateOwnProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	profile, err := ElectorCabUserClient(r).CreateOwnProfile(signature, &electorcab.CreateProfilrRequest{
+	profile, err := ElectorCabUserClient(r).CreateOwnProfile(signature, &electorcab.CreateProfileRequest{
 		Username:    req.Data.Attributes.Username,
 		Pseudonym:   req.Data.Attributes.Pseudonym,
 		Description: req.Data.Attributes.Description,

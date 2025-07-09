@@ -12,7 +12,7 @@ import (
 func DeleteOwnUserSessions(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New()
 
-	signature, err := signer.ServiceToken(r, requestID, []string{"chains-sso"})
+	signature, err := signer.SignWithUser(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for own session termination")
 		renderer.InternalError(w, requestID)

@@ -18,7 +18,7 @@ var secretKey string
 
 const serviceName = "api-gateway"
 
-func ServiceToken(r *http.Request, requestID uuid.UUID, audience []string) (context.Context, error) {
+func SignWithUser(r *http.Request, requestID uuid.UUID, audience []string) (context.Context, error) {
 	cfg, err := config.LoadConfig()
 	if err != nil {
 		return r.Context(), fmt.Errorf("failed to load config with sk: %w", err)
@@ -50,6 +50,31 @@ func ServiceToken(r *http.Request, requestID uuid.UUID, audience []string) (cont
 		r.Context(),
 		"authorization", fmt.Sprintf("Bearer %s", token),
 		"x-user-token", fmt.Sprintf("Bearer %s", parts[1]),
+		"x-request-id", requestID.String(),
+	), nil
+}
+
+func SignWithoutUser(r *http.Request, requestID uuid.UUID, audience []string) (context.Context, error) {
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		return r.Context(), fmt.Errorf("failed to load config with sk: %w", err)
+	}
+
+	secretKey = cfg.JWT.Service.SecretKey
+
+	token, err := tokens.GenerateServiceJWT(tokens.GenerateServiceJwtRequest{
+		Issuer:   serviceName,
+		Subject:  serviceName,
+		Audience: audience,
+		Ttl:      15 * time.Second,
+	}, secretKey)
+	if err != nil {
+		return r.Context(), fmt.Errorf("failed to generate service token: %w", err)
+	}
+
+	return metadata.AppendToOutgoingContext(
+		r.Context(),
+		"authorization", fmt.Sprintf("Bearer %s", token),
 		"x-request-id", requestID.String(),
 	), nil
 }
