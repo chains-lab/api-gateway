@@ -7,7 +7,7 @@ OUTPUT_DIR := ./docs/web
 RESOURCES_DIR := ./resources
 
 generate-models:
-	find $(RESOURCES_DIR) -type f ! \( -name "resources_types.go" -o -name "links.go" \) -delete
+	find $(RESOURCES_DIR) -type f ! \( -name "enum_types.go" -o -name "links.go" \) -delete
 	swagger-cli bundle $(API_SRC) --outfile $(API_BUNDLED) --type yaml
 
 	$(OPENAPI_GENERATOR) generate \

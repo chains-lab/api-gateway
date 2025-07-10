@@ -21,7 +21,6 @@ var _ MappedNullable = &CabinetAttributes{}
 
 // CabinetAttributes struct for CabinetAttributes
 type CabinetAttributes struct {
-	Profile ProfileAttributes `json:"profile"`
 	Biography BiographyAttributes `json:"biography"`
 }
 
@@ -31,9 +30,8 @@ type _CabinetAttributes CabinetAttributes
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCabinetAttributes(profile ProfileAttributes, biography BiographyAttributes) *CabinetAttributes {
+func NewCabinetAttributes(biography BiographyAttributes) *CabinetAttributes {
 	this := CabinetAttributes{}
-	this.Profile = profile
 	this.Biography = biography
 	return &this
 }
@@ -44,30 +42,6 @@ func NewCabinetAttributes(profile ProfileAttributes, biography BiographyAttribut
 func NewCabinetAttributesWithDefaults() *CabinetAttributes {
 	this := CabinetAttributes{}
 	return &this
-}
-
-// GetProfile returns the Profile field value
-func (o *CabinetAttributes) GetProfile() ProfileAttributes {
-	if o == nil {
-		var ret ProfileAttributes
-		return ret
-	}
-
-	return o.Profile
-}
-
-// GetProfileOk returns a tuple with the Profile field value
-// and a boolean to check if the value has been set.
-func (o *CabinetAttributes) GetProfileOk() (*ProfileAttributes, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Profile, true
-}
-
-// SetProfile sets field value
-func (o *CabinetAttributes) SetProfile(v ProfileAttributes) {
-	o.Profile = v
 }
 
 // GetBiography returns the Biography field value
@@ -104,7 +78,6 @@ func (o CabinetAttributes) MarshalJSON() ([]byte, error) {
 
 func (o CabinetAttributes) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["profile"] = o.Profile
 	toSerialize["biography"] = o.Biography
 	return toSerialize, nil
 }
@@ -114,7 +87,6 @@ func (o *CabinetAttributes) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"profile",
 		"biography",
 	}
 

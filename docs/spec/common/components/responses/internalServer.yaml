@@ -1,0 +1,17 @@
+description: Internal Server Error
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/Errors.yaml'
+    examples:
+      default:
+        summary: Internal Server Error
+        value:
+          errors:
+            - status: 500
+              title: Internal Server Error
+              code: INTERNAL_SERVER_ERROR
+              detail: "internal server error"
+              meta:
+                request_id: "1234567890abcdef"
+                timestamp: "2025-07-10T14:23:00Z"

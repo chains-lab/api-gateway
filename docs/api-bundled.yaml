@@ -705,7 +705,7 @@ components:
             type:
               type: string
               enum:
-                - update_profile_by_admin
+                - reset_profile_by_admin
             attributes:
               type: object
               properties:
@@ -799,21 +799,7 @@ components:
           type: string
           description: The country where the elector resides.
           example: USA
-        nationality:
-          type: string
-          description: nationality of the elector
-          example: American
-        primary_language:
-          type: string
-          description: The primary language spoken by the elector.
-          example: English
         sex_updated_at:
-          type: string
-          format: date-time
-        nationality_updated_at:
-          type: string
-          format: date-time
-        primary_language_updated_at:
           type: string
           format: date-time
         residence_updated_at:
@@ -843,12 +829,8 @@ components:
     CabinetAttributes:
       type: object
       required:
-        - profile
         - biography
-        - job_resume
       properties:
-        profile:
-          $ref: '#/components/schemas/ProfileAttributes'
         biography:
           $ref: '#/components/schemas/BiographyAttributes'
     Profile:

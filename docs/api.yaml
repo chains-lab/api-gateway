@@ -1,27 +1,31 @@
 openapi: 3.1.1
 info:
-  title: Cifra SSO REST API
-  description: SSO REST API for Cifra app
+  title: Chains API
+  description: Chains API
   version: 0.0.1
+
+########################################################################################################################
+#####                                            SSO-SVC                                                           #####
+########################################################################################################################
 
 paths:
   /chains/auth/v1/own:
-    $ref: './paths/sso-svc/OwnData.yaml'
+    $ref: './spec/sso-svc/paths/OwnData.yaml'
 
   /re-news/chains/auth/v1/own/refresh:
-    $ref: './paths/sso-svc/Refresh.yaml'
+    $ref: './spec/sso-svc/paths/Refresh.yaml'
 
   /re-news/chains/auth/v1/own/login:
-    $ref: './paths/sso-svc/Login.yaml'
+    $ref: './spec/sso-svc/paths/Login.yaml'
 
   /re-news/chains/auth/v1/own/callback:
-    $ref: './paths/sso-svc/LoginCallback.yaml'
+    $ref: './spec/sso-svc/paths/LoginCallback.yaml'
 
   /re-news/chains/auth/v1/own/logout:
-    $ref: './paths/sso-svc/Logout.yaml'
+    $ref: './spec/sso-svc/paths/Logout.yaml'
 
   /re-news/chains/auth/v1/own/sessions:
-    $ref: './paths/sso-svc/OwnSessions.yaml'
+    $ref: './spec/sso-svc/paths/OwnSessions.yaml'
 
   /re-news/chains/auth/v1/own/sessions/{session_id}:
     parameters:
@@ -30,7 +34,7 @@ paths:
         required: true
         schema:
           type: string
-    $ref: './paths/sso-svc/OwnSession.yaml'
+    $ref: './spec/sso-svc/paths/OwnSession.yaml'
 
     #Admins
 
@@ -41,7 +45,7 @@ paths:
         required: true
         schema:
           type: string
-    $ref: './paths/sso-svc/AdminGetUser.yaml'
+    $ref: './spec/sso-svc/paths/AdminGetUser.yaml'
 
   /re-news/chains/auth/v1/admin/{user_id}/{role}:
     parameters:
@@ -55,7 +59,7 @@ paths:
         required: true
         schema:
           type: string
-    $ref: './paths/sso-svc/AdminUpdateRole.yaml'
+    $ref: './spec/sso-svc/paths/AdminUpdateRole.yaml'
 
   /re-news/chains/auth/v1/admin/{user_id}/sessions:
     parameters:
@@ -64,7 +68,7 @@ paths:
         required: true
         schema:
           type: string
-    $ref: './paths/sso-svc/AdminUserSessions.yaml'
+    $ref: './spec/sso-svc/paths/AdminUserSessions.yaml'
 
   /re-news/chains/auth/v1/admin/{user_id}/sessions/{session_id}:
     parameters:
@@ -78,7 +82,7 @@ paths:
         required: true
         schema:
           type: string
-    $ref: './paths/sso-svc/AdminUserSession.yaml'
+    $ref: './spec/sso-svc/paths/AdminUserSession.yaml'
 
 components:
   schemas:
@@ -87,67 +91,57 @@ components:
 
     # request
     RefreshToken:
-      $ref: './spec/components/schemas/sso-svc/requests/RefreshToken.yaml'
+      $ref: './spec/sso-svc/components/requests/RefreshToken.yaml'
     CreateUserByAdmin:
-      $ref: './spec/components/schemas/sso-svc/requests/CreateUserByAdmin.yaml'
+      $ref: './spec/sso-svc/components/requests/CreateUserByAdmin.yaml'
 
     # responses
     TokensPair:
-      $ref: './spec/components/schemas/sso-svc/responses/TokensPair.yaml'
+      $ref: './spec/sso-svc/components/schemas/TokensPair.yaml'
     AccessToken:
-      $ref: './spec/components/schemas/sso-svc/responses/AccessToken.yaml'
+      $ref: './spec/sso-svc/components/schemas/AccessToken.yaml'
     Session:
-      $ref: './spec/components/schemas/sso-svc/responses/Session.yaml'
+      $ref: './spec/sso-svc/components/schemas/Session.yaml'
     SessionData:
-      $ref: './spec/components/schemas/sso-svc/responses/SessionData.yaml'
+      $ref: './spec/sso-svc/components/schemas/SessionData.yaml'
     SessionAttributes:
-      $ref: './spec/components/schemas/sso-svc/responses/SessionAttributes.yaml'
+      $ref: './spec/sso-svc/components/schemas/SessionAttributes.yaml'
     SessionsCollection:
-      $ref: './spec/components/schemas/sso-svc/responses/SessionsCollection.yaml'
+      $ref: './spec/sso-svc/components/schemas/SessionsCollection.yaml'
     User:
-      $ref: './spec/components/schemas/sso-svc/responses/User.yaml'
+      $ref: './spec/sso-svc/components/schemas/User.yaml'
     Errors:
-      $ref: './spec/components/schemas/Errors.yaml'
+      $ref: './spec/common/components/schemas/Errors.yaml'
 
     ########## elector-cab ##########
 
     # request
     UpdateOwnProfile:
-      $ref: './spec/components/schemas/elector-cab-svc/requests/UpdateOwnProfile.yaml'
+      $ref: './spec/elector-cab-svc/components/requests/UpdateOwnProfile.yaml'
     UpdateProfileByAdmin:
-      $ref: './spec/components/schemas/elector-cab-svc/requests/ResetProfileByAdmin.yaml'
+      $ref: './spec/elector-cab-svc/components/requests/ResetProfileByAdmin.yaml'
     CreateOwnProfile:
-      $ref: './spec/components/schemas/elector-cab-svc/requests/CreateOwnProfile.yaml'
+      $ref: './spec/elector-cab-svc/components/requests/CreateOwnProfile.yaml'
 
     # responses
     Biography:
-      $ref: './spec/components/schemas/elector-cab-svc/responses/Biography.yaml'
+      $ref: './spec/elector-cab-svc/components/schemas/Biography.yaml'
     BiographyAttributes:
-      $ref: './spec/components/schemas/elector-cab-svc/responses/BiographyAttributes.yaml'
+      $ref: './spec/elector-cab-svc/components/schemas/BiographyAttributes.yaml'
     Cabinet:
-      $ref: './spec/components/schemas/elector-cab-svc/responses/Cabinet.yaml'
+      $ref: './spec/elector-cab-svc/components/schemas/Cabinet.yaml'
     CabinetAttributes:
-      $ref: './spec/components/schemas/elector-cab-svc/responses/CabinetAttributes.yaml'
+      $ref: './spec/elector-cab-svc/components/schemas/CabinetAttributes.yaml'
     Profile:
-      $ref: './spec/components/schemas/elector-cab-svc/responses/Profile.yaml'
+      $ref: './spec/elector-cab-svc/components/schemas/Profile.yaml'
     ProfileAttributes:
-      $ref: './spec/components/schemas/elector-cab-svc/responses/ProfileAttributes.yaml'
+      $ref: './spec/elector-cab-svc/components/schemas/ProfileAttributes.yaml'
 
 
   responses:
-    Unauthorized:
-      $ref: './spec/components/responses/unauthorized.yaml'
-    NotFound:
-      $ref: './spec/components/responses/notFound.yaml'
-    Forbidden:
-      $ref: './spec/components/responses/forbidden.yaml'
     Internal:
-      $ref: './spec/components/responses/internal.yaml'
-    Conflict:
-      $ref: './spec/components/responses/conflict.yaml'
-    TooManyRequests:
-      $ref: './spec/components/responses/tooManyRequests.yaml'
+      $ref: './spec/common/components/responses/internalServer.yaml'
     UnsupportedMediaType:
-      $ref: './spec/components/responses/unsupportedMediaType.yaml'
+      $ref: './spec/common/components/responses/unsupportedMediaType.yaml'
     BadRequest:
-      $ref: './spec/components/responses/badRequest.yaml'
+      $ref: './spec/common/components/responses/badRequest.yaml'

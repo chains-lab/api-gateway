@@ -30,13 +30,7 @@ type BiographyAttributes struct {
 	Region *string `json:"region,omitempty"`
 	// The country where the elector resides.
 	Country *string `json:"country,omitempty"`
-	// nationality of the elector
-	Nationality *string `json:"nationality,omitempty"`
-	// The primary language spoken by the elector.
-	PrimaryLanguage *string `json:"primary_language,omitempty"`
 	SexUpdatedAt *time.Time `json:"sex_updated_at,omitempty"`
-	NationalityUpdatedAt *time.Time `json:"nationality_updated_at,omitempty"`
-	PrimaryLanguageUpdatedAt *time.Time `json:"primary_language_updated_at,omitempty"`
 	ResidenceUpdatedAt *time.Time `json:"residence_updated_at,omitempty"`
 }
 
@@ -217,70 +211,6 @@ func (o *BiographyAttributes) SetCountry(v string) {
 	o.Country = &v
 }
 
-// GetNationality returns the Nationality field value if set, zero value otherwise.
-func (o *BiographyAttributes) GetNationality() string {
-	if o == nil || IsNil(o.Nationality) {
-		var ret string
-		return ret
-	}
-	return *o.Nationality
-}
-
-// GetNationalityOk returns a tuple with the Nationality field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BiographyAttributes) GetNationalityOk() (*string, bool) {
-	if o == nil || IsNil(o.Nationality) {
-		return nil, false
-	}
-	return o.Nationality, true
-}
-
-// HasNationality returns a boolean if a field has been set.
-func (o *BiographyAttributes) HasNationality() bool {
-	if o != nil && !IsNil(o.Nationality) {
-		return true
-	}
-
-	return false
-}
-
-// SetNationality gets a reference to the given string and assigns it to the Nationality field.
-func (o *BiographyAttributes) SetNationality(v string) {
-	o.Nationality = &v
-}
-
-// GetPrimaryLanguage returns the PrimaryLanguage field value if set, zero value otherwise.
-func (o *BiographyAttributes) GetPrimaryLanguage() string {
-	if o == nil || IsNil(o.PrimaryLanguage) {
-		var ret string
-		return ret
-	}
-	return *o.PrimaryLanguage
-}
-
-// GetPrimaryLanguageOk returns a tuple with the PrimaryLanguage field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BiographyAttributes) GetPrimaryLanguageOk() (*string, bool) {
-	if o == nil || IsNil(o.PrimaryLanguage) {
-		return nil, false
-	}
-	return o.PrimaryLanguage, true
-}
-
-// HasPrimaryLanguage returns a boolean if a field has been set.
-func (o *BiographyAttributes) HasPrimaryLanguage() bool {
-	if o != nil && !IsNil(o.PrimaryLanguage) {
-		return true
-	}
-
-	return false
-}
-
-// SetPrimaryLanguage gets a reference to the given string and assigns it to the PrimaryLanguage field.
-func (o *BiographyAttributes) SetPrimaryLanguage(v string) {
-	o.PrimaryLanguage = &v
-}
-
 // GetSexUpdatedAt returns the SexUpdatedAt field value if set, zero value otherwise.
 func (o *BiographyAttributes) GetSexUpdatedAt() time.Time {
 	if o == nil || IsNil(o.SexUpdatedAt) {
@@ -311,70 +241,6 @@ func (o *BiographyAttributes) HasSexUpdatedAt() bool {
 // SetSexUpdatedAt gets a reference to the given time.Time and assigns it to the SexUpdatedAt field.
 func (o *BiographyAttributes) SetSexUpdatedAt(v time.Time) {
 	o.SexUpdatedAt = &v
-}
-
-// GetNationalityUpdatedAt returns the NationalityUpdatedAt field value if set, zero value otherwise.
-func (o *BiographyAttributes) GetNationalityUpdatedAt() time.Time {
-	if o == nil || IsNil(o.NationalityUpdatedAt) {
-		var ret time.Time
-		return ret
-	}
-	return *o.NationalityUpdatedAt
-}
-
-// GetNationalityUpdatedAtOk returns a tuple with the NationalityUpdatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BiographyAttributes) GetNationalityUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.NationalityUpdatedAt) {
-		return nil, false
-	}
-	return o.NationalityUpdatedAt, true
-}
-
-// HasNationalityUpdatedAt returns a boolean if a field has been set.
-func (o *BiographyAttributes) HasNationalityUpdatedAt() bool {
-	if o != nil && !IsNil(o.NationalityUpdatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetNationalityUpdatedAt gets a reference to the given time.Time and assigns it to the NationalityUpdatedAt field.
-func (o *BiographyAttributes) SetNationalityUpdatedAt(v time.Time) {
-	o.NationalityUpdatedAt = &v
-}
-
-// GetPrimaryLanguageUpdatedAt returns the PrimaryLanguageUpdatedAt field value if set, zero value otherwise.
-func (o *BiographyAttributes) GetPrimaryLanguageUpdatedAt() time.Time {
-	if o == nil || IsNil(o.PrimaryLanguageUpdatedAt) {
-		var ret time.Time
-		return ret
-	}
-	return *o.PrimaryLanguageUpdatedAt
-}
-
-// GetPrimaryLanguageUpdatedAtOk returns a tuple with the PrimaryLanguageUpdatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BiographyAttributes) GetPrimaryLanguageUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.PrimaryLanguageUpdatedAt) {
-		return nil, false
-	}
-	return o.PrimaryLanguageUpdatedAt, true
-}
-
-// HasPrimaryLanguageUpdatedAt returns a boolean if a field has been set.
-func (o *BiographyAttributes) HasPrimaryLanguageUpdatedAt() bool {
-	if o != nil && !IsNil(o.PrimaryLanguageUpdatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetPrimaryLanguageUpdatedAt gets a reference to the given time.Time and assigns it to the PrimaryLanguageUpdatedAt field.
-func (o *BiographyAttributes) SetPrimaryLanguageUpdatedAt(v time.Time) {
-	o.PrimaryLanguageUpdatedAt = &v
 }
 
 // GetResidenceUpdatedAt returns the ResidenceUpdatedAt field value if set, zero value otherwise.
@@ -434,20 +300,8 @@ func (o BiographyAttributes) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Country) {
 		toSerialize["country"] = o.Country
 	}
-	if !IsNil(o.Nationality) {
-		toSerialize["nationality"] = o.Nationality
-	}
-	if !IsNil(o.PrimaryLanguage) {
-		toSerialize["primary_language"] = o.PrimaryLanguage
-	}
 	if !IsNil(o.SexUpdatedAt) {
 		toSerialize["sex_updated_at"] = o.SexUpdatedAt
-	}
-	if !IsNil(o.NationalityUpdatedAt) {
-		toSerialize["nationality_updated_at"] = o.NationalityUpdatedAt
-	}
-	if !IsNil(o.PrimaryLanguageUpdatedAt) {
-		toSerialize["primary_language_updated_at"] = o.PrimaryLanguageUpdatedAt
 	}
 	if !IsNil(o.ResidenceUpdatedAt) {
 		toSerialize["residence_updated_at"] = o.ResidenceUpdatedAt

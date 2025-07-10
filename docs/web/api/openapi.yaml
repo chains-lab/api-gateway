@@ -645,21 +645,7 @@ components:
           description: The country where the elector resides.
           example: USA
           type: string
-        nationality:
-          description: nationality of the elector
-          example: American
-          type: string
-        primary_language:
-          description: The primary language spoken by the elector.
-          example: English
-          type: string
         sex_updated_at:
-          format: date-time
-          type: string
-        nationality_updated_at:
-          format: date-time
-          type: string
-        primary_language_updated_at:
           format: date-time
           type: string
         residence_updated_at:
@@ -673,13 +659,10 @@ components:
       - data
     CabinetAttributes:
       properties:
-        profile:
-          $ref: "#/components/schemas/ProfileAttributes"
         biography:
           $ref: "#/components/schemas/BiographyAttributes"
       required:
       - biography
-      - profile
     Profile:
       properties:
         data:
@@ -989,7 +972,7 @@ components:
           type: string
         type:
           enum:
-          - update_profile_by_admin
+          - reset_profile_by_admin
           type: string
         attributes:
           $ref: "#/components/schemas/UpdateProfileByAdmin_data_attributes"

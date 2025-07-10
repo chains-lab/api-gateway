@@ -4,14 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Profile** | [**ProfileAttributes**](ProfileAttributes.md) |  | 
 **Biography** | [**BiographyAttributes**](BiographyAttributes.md) |  | 
 
 ## Methods
 
 ### NewCabinetAttributes
 
-`func NewCabinetAttributes(profile ProfileAttributes, biography BiographyAttributes, ) *CabinetAttributes`
+`func NewCabinetAttributes(biography BiographyAttributes, ) *CabinetAttributes`
 
 NewCabinetAttributes instantiates a new CabinetAttributes object
 This constructor will assign default values to properties that have it defined,
@@ -25,26 +24,6 @@ will change when the set of required properties is changed
 NewCabinetAttributesWithDefaults instantiates a new CabinetAttributes object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetProfile
-
-`func (o *CabinetAttributes) GetProfile() ProfileAttributes`
-
-GetProfile returns the Profile field if non-nil, zero value otherwise.
-
-### GetProfileOk
-
-`func (o *CabinetAttributes) GetProfileOk() (*ProfileAttributes, bool)`
-
-GetProfileOk returns a tuple with the Profile field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProfile
-
-`func (o *CabinetAttributes) SetProfile(v ProfileAttributes)`
-
-SetProfile sets Profile field to given value.
-
 
 ### GetBiography
 

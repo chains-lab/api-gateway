@@ -9,11 +9,7 @@ Name | Type | Description | Notes
 **City** | Pointer to **string** | The city where the elector resides. | [optional] 
 **Region** | Pointer to **string** | The region where the elector resides. | [optional] 
 **Country** | Pointer to **string** | The country where the elector resides. | [optional] 
-**Nationality** | Pointer to **string** | nationality of the elector | [optional] 
-**PrimaryLanguage** | Pointer to **string** | The primary language spoken by the elector. | [optional] 
 **SexUpdatedAt** | Pointer to **time.Time** |  | [optional] 
-**NationalityUpdatedAt** | Pointer to **time.Time** |  | [optional] 
-**PrimaryLanguageUpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **ResidenceUpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
@@ -160,56 +156,6 @@ SetCountry sets Country field to given value.
 
 HasCountry returns a boolean if a field has been set.
 
-### GetNationality
-
-`func (o *BiographyAttributes) GetNationality() string`
-
-GetNationality returns the Nationality field if non-nil, zero value otherwise.
-
-### GetNationalityOk
-
-`func (o *BiographyAttributes) GetNationalityOk() (*string, bool)`
-
-GetNationalityOk returns a tuple with the Nationality field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNationality
-
-`func (o *BiographyAttributes) SetNationality(v string)`
-
-SetNationality sets Nationality field to given value.
-
-### HasNationality
-
-`func (o *BiographyAttributes) HasNationality() bool`
-
-HasNationality returns a boolean if a field has been set.
-
-### GetPrimaryLanguage
-
-`func (o *BiographyAttributes) GetPrimaryLanguage() string`
-
-GetPrimaryLanguage returns the PrimaryLanguage field if non-nil, zero value otherwise.
-
-### GetPrimaryLanguageOk
-
-`func (o *BiographyAttributes) GetPrimaryLanguageOk() (*string, bool)`
-
-GetPrimaryLanguageOk returns a tuple with the PrimaryLanguage field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPrimaryLanguage
-
-`func (o *BiographyAttributes) SetPrimaryLanguage(v string)`
-
-SetPrimaryLanguage sets PrimaryLanguage field to given value.
-
-### HasPrimaryLanguage
-
-`func (o *BiographyAttributes) HasPrimaryLanguage() bool`
-
-HasPrimaryLanguage returns a boolean if a field has been set.
-
 ### GetSexUpdatedAt
 
 `func (o *BiographyAttributes) GetSexUpdatedAt() time.Time`
@@ -234,56 +180,6 @@ SetSexUpdatedAt sets SexUpdatedAt field to given value.
 `func (o *BiographyAttributes) HasSexUpdatedAt() bool`
 
 HasSexUpdatedAt returns a boolean if a field has been set.
-
-### GetNationalityUpdatedAt
-
-`func (o *BiographyAttributes) GetNationalityUpdatedAt() time.Time`
-
-GetNationalityUpdatedAt returns the NationalityUpdatedAt field if non-nil, zero value otherwise.
-
-### GetNationalityUpdatedAtOk
-
-`func (o *BiographyAttributes) GetNationalityUpdatedAtOk() (*time.Time, bool)`
-
-GetNationalityUpdatedAtOk returns a tuple with the NationalityUpdatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNationalityUpdatedAt
-
-`func (o *BiographyAttributes) SetNationalityUpdatedAt(v time.Time)`
-
-SetNationalityUpdatedAt sets NationalityUpdatedAt field to given value.
-
-### HasNationalityUpdatedAt
-
-`func (o *BiographyAttributes) HasNationalityUpdatedAt() bool`
-
-HasNationalityUpdatedAt returns a boolean if a field has been set.
-
-### GetPrimaryLanguageUpdatedAt
-
-`func (o *BiographyAttributes) GetPrimaryLanguageUpdatedAt() time.Time`
-
-GetPrimaryLanguageUpdatedAt returns the PrimaryLanguageUpdatedAt field if non-nil, zero value otherwise.
-
-### GetPrimaryLanguageUpdatedAtOk
-
-`func (o *BiographyAttributes) GetPrimaryLanguageUpdatedAtOk() (*time.Time, bool)`
-
-GetPrimaryLanguageUpdatedAtOk returns a tuple with the PrimaryLanguageUpdatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPrimaryLanguageUpdatedAt
-
-`func (o *BiographyAttributes) SetPrimaryLanguageUpdatedAt(v time.Time)`
-
-SetPrimaryLanguageUpdatedAt sets PrimaryLanguageUpdatedAt field to given value.
-
-### HasPrimaryLanguageUpdatedAt
-
-`func (o *BiographyAttributes) HasPrimaryLanguageUpdatedAt() bool`
-
-HasPrimaryLanguageUpdatedAt returns a boolean if a field has been set.
 
 ### GetResidenceUpdatedAt
 

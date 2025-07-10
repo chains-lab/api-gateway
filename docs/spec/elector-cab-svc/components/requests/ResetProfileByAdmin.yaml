@@ -1,0 +1,25 @@
+type: object
+required:
+  - data
+properties:
+  data:
+    required:
+      - id
+      - type
+      - attributes
+    properties:
+      id:
+        type: string
+        description: User ID of the elector.
+      type:
+        type: string
+        enum: [ reset_profile_by_admin ]
+      attributes:
+        type: object
+        properties:
+          pseudonym:
+            type: boolean
+          description:
+            type: boolean
+          avatar:
+            type: boolean
