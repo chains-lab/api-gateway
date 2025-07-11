@@ -33,20 +33,3 @@ properties:
           example: "Request body was expected"
         meta:
           type: object
-          required:
-            - request_id
-            - timestamp
-          properties:
-            request_id:
-              type: string
-              description: >-
-                Request ID is a unique identifier for the request, used for
-                debugging and tracing
-              example: 1234567890abcdef
-            timestamp:
-              type: string
-              format: date-time
-              description: >-
-                Timestamp is the time when the error occurred, in ISO 8601
-                format
-              example: '2023-10-01T12:34:56Z'

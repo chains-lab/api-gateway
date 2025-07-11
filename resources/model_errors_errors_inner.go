@@ -1,7 +1,7 @@
 /*
-Cifra SSO REST API
+Chains API
 
-SSO REST API for Cifra app
+Chains API
 
 API version: 0.0.1
 */
@@ -26,10 +26,10 @@ type ErrorsErrorsInner struct {
 	// Title is a short, human-readable summary of the problem
 	Title string `json:"title"`
 	// Code is an application-specific error code, expressed as a string
-	Code string `json:"code"`
+	Code *string `json:"code,omitempty"`
 	// Detail is a human-readable explanation specific to this occurrence of the problem
-	Detail string `json:"detail"`
-	Meta ErrorsErrorsInnerMeta `json:"meta"`
+	Detail *string `json:"detail,omitempty"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
 }
 
 type _ErrorsErrorsInner ErrorsErrorsInner
@@ -38,13 +38,10 @@ type _ErrorsErrorsInner ErrorsErrorsInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewErrorsErrorsInner(status int32, title string, code string, detail string, meta ErrorsErrorsInnerMeta) *ErrorsErrorsInner {
+func NewErrorsErrorsInner(status int32, title string) *ErrorsErrorsInner {
 	this := ErrorsErrorsInner{}
 	this.Status = status
 	this.Title = title
-	this.Code = code
-	this.Detail = detail
-	this.Meta = meta
 	return &this
 }
 
@@ -104,75 +101,99 @@ func (o *ErrorsErrorsInner) SetTitle(v string) {
 	o.Title = v
 }
 
-// GetCode returns the Code field value
+// GetCode returns the Code field value if set, zero value otherwise.
 func (o *ErrorsErrorsInner) GetCode() string {
-	if o == nil {
+	if o == nil || IsNil(o.Code) {
 		var ret string
 		return ret
 	}
-
-	return o.Code
+	return *o.Code
 }
 
-// GetCodeOk returns a tuple with the Code field value
+// GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorsErrorsInner) GetCodeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
-	return &o.Code, true
+	return o.Code, true
 }
 
-// SetCode sets field value
+// HasCode returns a boolean if a field has been set.
+func (o *ErrorsErrorsInner) HasCode() bool {
+	if o != nil && !IsNil(o.Code) {
+		return true
+	}
+
+	return false
+}
+
+// SetCode gets a reference to the given string and assigns it to the Code field.
 func (o *ErrorsErrorsInner) SetCode(v string) {
-	o.Code = v
+	o.Code = &v
 }
 
-// GetDetail returns the Detail field value
+// GetDetail returns the Detail field value if set, zero value otherwise.
 func (o *ErrorsErrorsInner) GetDetail() string {
-	if o == nil {
+	if o == nil || IsNil(o.Detail) {
 		var ret string
 		return ret
 	}
-
-	return o.Detail
+	return *o.Detail
 }
 
-// GetDetailOk returns a tuple with the Detail field value
+// GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorsErrorsInner) GetDetailOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Detail) {
 		return nil, false
 	}
-	return &o.Detail, true
+	return o.Detail, true
 }
 
-// SetDetail sets field value
-func (o *ErrorsErrorsInner) SetDetail(v string) {
-	o.Detail = v
-}
-
-// GetMeta returns the Meta field value
-func (o *ErrorsErrorsInner) GetMeta() ErrorsErrorsInnerMeta {
-	if o == nil {
-		var ret ErrorsErrorsInnerMeta
-		return ret
+// HasDetail returns a boolean if a field has been set.
+func (o *ErrorsErrorsInner) HasDetail() bool {
+	if o != nil && !IsNil(o.Detail) {
+		return true
 	}
 
+	return false
+}
+
+// SetDetail gets a reference to the given string and assigns it to the Detail field.
+func (o *ErrorsErrorsInner) SetDetail(v string) {
+	o.Detail = &v
+}
+
+// GetMeta returns the Meta field value if set, zero value otherwise.
+func (o *ErrorsErrorsInner) GetMeta() map[string]interface{} {
+	if o == nil || IsNil(o.Meta) {
+		var ret map[string]interface{}
+		return ret
+	}
 	return o.Meta
 }
 
-// GetMetaOk returns a tuple with the Meta field value
+// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ErrorsErrorsInner) GetMetaOk() (*ErrorsErrorsInnerMeta, bool) {
-	if o == nil {
-		return nil, false
+func (o *ErrorsErrorsInner) GetMetaOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Meta) {
+		return map[string]interface{}{}, false
 	}
-	return &o.Meta, true
+	return o.Meta, true
 }
 
-// SetMeta sets field value
-func (o *ErrorsErrorsInner) SetMeta(v ErrorsErrorsInnerMeta) {
+// HasMeta returns a boolean if a field has been set.
+func (o *ErrorsErrorsInner) HasMeta() bool {
+	if o != nil && !IsNil(o.Meta) {
+		return true
+	}
+
+	return false
+}
+
+// SetMeta gets a reference to the given map[string]interface{} and assigns it to the Meta field.
+func (o *ErrorsErrorsInner) SetMeta(v map[string]interface{}) {
 	o.Meta = v
 }
 
@@ -188,9 +209,15 @@ func (o ErrorsErrorsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["status"] = o.Status
 	toSerialize["title"] = o.Title
-	toSerialize["code"] = o.Code
-	toSerialize["detail"] = o.Detail
-	toSerialize["meta"] = o.Meta
+	if !IsNil(o.Code) {
+		toSerialize["code"] = o.Code
+	}
+	if !IsNil(o.Detail) {
+		toSerialize["detail"] = o.Detail
+	}
+	if !IsNil(o.Meta) {
+		toSerialize["meta"] = o.Meta
+	}
 	return toSerialize, nil
 }
 
@@ -201,9 +228,6 @@ func (o *ErrorsErrorsInner) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"status",
 		"title",
-		"code",
-		"detail",
-		"meta",
 	}
 
 	allProperties := make(map[string]interface{})

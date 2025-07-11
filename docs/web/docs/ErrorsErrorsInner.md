@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Status** | **int32** | Status is the HTTP status code applicable to this problem | 
 **Title** | **string** | Title is a short, human-readable summary of the problem | 
-**Code** | **string** | Code is an application-specific error code, expressed as a string | 
-**Detail** | **string** | Detail is a human-readable explanation specific to this occurrence of the problem | 
-**Meta** | [**ErrorsErrorsInnerMeta**](ErrorsErrorsInnerMeta.md) |  | 
+**Code** | Pointer to **string** | Code is an application-specific error code, expressed as a string | [optional] 
+**Detail** | Pointer to **string** | Detail is a human-readable explanation specific to this occurrence of the problem | [optional] 
+**Meta** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewErrorsErrorsInner
 
-`func NewErrorsErrorsInner(status int32, title string, code string, detail string, meta ErrorsErrorsInnerMeta, ) *ErrorsErrorsInner`
+`func NewErrorsErrorsInner(status int32, title string, ) *ErrorsErrorsInner`
 
 NewErrorsErrorsInner instantiates a new ErrorsErrorsInner object
 This constructor will assign default values to properties that have it defined,
@@ -88,6 +88,11 @@ and a boolean to check if the value has been set.
 
 SetCode sets Code field to given value.
 
+### HasCode
+
+`func (o *ErrorsErrorsInner) HasCode() bool`
+
+HasCode returns a boolean if a field has been set.
 
 ### GetDetail
 
@@ -108,26 +113,36 @@ and a boolean to check if the value has been set.
 
 SetDetail sets Detail field to given value.
 
+### HasDetail
+
+`func (o *ErrorsErrorsInner) HasDetail() bool`
+
+HasDetail returns a boolean if a field has been set.
 
 ### GetMeta
 
-`func (o *ErrorsErrorsInner) GetMeta() ErrorsErrorsInnerMeta`
+`func (o *ErrorsErrorsInner) GetMeta() map[string]interface{}`
 
 GetMeta returns the Meta field if non-nil, zero value otherwise.
 
 ### GetMetaOk
 
-`func (o *ErrorsErrorsInner) GetMetaOk() (*ErrorsErrorsInnerMeta, bool)`
+`func (o *ErrorsErrorsInner) GetMetaOk() (*map[string]interface{}, bool)`
 
 GetMetaOk returns a tuple with the Meta field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMeta
 
-`func (o *ErrorsErrorsInner) SetMeta(v ErrorsErrorsInnerMeta)`
+`func (o *ErrorsErrorsInner) SetMeta(v map[string]interface{})`
 
 SetMeta sets Meta field to given value.
 
+### HasMeta
+
+`func (o *ErrorsErrorsInner) HasMeta() bool`
+
+HasMeta returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

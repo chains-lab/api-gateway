@@ -33,7 +33,7 @@ func DeleteUserSessionByAdmin(w http.ResponseWriter, r *http.Request) {
 	signature, err := signer.SignWithUser(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", userID)
-		renderer.InternalError(w, requestID)
+		renderer.InternalError(w, &requestID)
 
 		return
 	}
@@ -43,7 +43,7 @@ func DeleteUserSessionByAdmin(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error delete session for user %s by %s", userID, initiator.UserID)
-		renderer.RenderGRPCError(w, requestID, err)
+		renderer.RenderGRPCError(w, err)
 
 		return
 	}

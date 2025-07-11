@@ -1,7 +1,7 @@
 /*
-Cifra SSO REST API
+Chains API
 
-SSO REST API for Cifra app
+Chains API
 
 API version: 0.0.1
 */

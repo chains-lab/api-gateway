@@ -4,97 +4,91 @@ info:
   description: Chains API
   version: 0.0.1
 
-########################################################################################################################
-#####                                            SSO-SVC                                                           #####
-########################################################################################################################
-
-paths:
-  /chains/auth/v1/own:
-    $ref: './spec/sso-svc/paths/OwnData.yaml'
-
-  /re-news/chains/auth/v1/own/refresh:
-    $ref: './spec/sso-svc/paths/Refresh.yaml'
-
-  /re-news/chains/auth/v1/own/login:
-    $ref: './spec/sso-svc/paths/Login.yaml'
-
-  /re-news/chains/auth/v1/own/callback:
-    $ref: './spec/sso-svc/paths/LoginCallback.yaml'
-
-  /re-news/chains/auth/v1/own/logout:
-    $ref: './spec/sso-svc/paths/Logout.yaml'
-
-  /re-news/chains/auth/v1/own/sessions:
-    $ref: './spec/sso-svc/paths/OwnSessions.yaml'
-
-  /re-news/chains/auth/v1/own/sessions/{session_id}:
-    parameters:
-      - name: session_id
-        in: path
-        required: true
-        schema:
-          type: string
-    $ref: './spec/sso-svc/paths/OwnSession.yaml'
-
-    #Admins
-
-  /re-news/chains/auth/v1/admin/{user_id}:
-    parameters:
-      - name: user_id
-        in: path
-        required: true
-        schema:
-          type: string
-    $ref: './spec/sso-svc/paths/AdminGetUser.yaml'
-
-  /re-news/chains/auth/v1/admin/{user_id}/{role}:
-    parameters:
-      - name: user_id
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: role
-        in: path
-        required: true
-        schema:
-          type: string
-    $ref: './spec/sso-svc/paths/AdminUpdateRole.yaml'
-
-  /re-news/chains/auth/v1/admin/{user_id}/sessions:
-    parameters:
-      - name: user_id
-        in: path
-        required: true
-        schema:
-          type: string
-    $ref: './spec/sso-svc/paths/AdminUserSessions.yaml'
-
-  /re-news/chains/auth/v1/admin/{user_id}/sessions/{session_id}:
-    parameters:
-      - name: user_id
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: session_id
-        in: path
-        required: true
-        schema:
-          type: string
-    $ref: './spec/sso-svc/paths/AdminUserSession.yaml'
+paths: {}
+#  /chains/auth/v1/own:
+#    $ref: './spec/sso-svc/paths/OwnData.yaml'
+#
+#  /re-news/chains/auth/v1/own/refresh:
+#    $ref: './spec/sso-svc/paths/Refresh.yaml'
+#
+#  /re-news/chains/auth/v1/own/login:
+#    $ref: './spec/sso-svc/paths/Login.yaml'
+#
+#  /re-news/chains/auth/v1/own/callback:
+#    $ref: './spec/sso-svc/paths/LoginCallback.yaml'
+#
+#  /re-news/chains/auth/v1/own/logout:
+#    $ref: './spec/sso-svc/paths/Logout.yaml'
+#
+#  /re-news/chains/auth/v1/own/sessions:
+#    $ref: './spec/sso-svc/paths/OwnSessions.yaml'
+#
+#  /re-news/chains/auth/v1/own/sessions/{session_id}:
+#    parameters:
+#      - name: session_id
+#        in: path
+#        required: true
+#        schema:
+#          type: string
+#    $ref: './spec/sso-svc/paths/OwnSession.yaml'
+#
+#    #Admins
+#
+#  /re-news/chains/auth/v1/admin/{user_id}:
+#    parameters:
+#      - name: user_id
+#        in: path
+#        required: true
+#        schema:
+#          type: string
+#    $ref: './spec/sso-svc/paths/AdminGetUser.yaml'
+#
+#  /re-news/chains/auth/v1/admin/{user_id}/{role}:
+#    parameters:
+#      - name: user_id
+#        in: path
+#        required: true
+#        schema:
+#          type: string
+#      - name: role
+#        in: path
+#        required: true
+#        schema:
+#          type: string
+#    $ref: './spec/sso-svc/paths/AdminUpdateRole.yaml'
+#
+#  /re-news/chains/auth/v1/admin/{user_id}/sessions:
+#    parameters:
+#      - name: user_id
+#        in: path
+#        required: true
+#        schema:
+#          type: string
+#    $ref: './spec/sso-svc/paths/AdminUserSessions.yaml'
+#
+#  /re-news/chains/auth/v1/admin/{user_id}/sessions/{session_id}:
+#    parameters:
+#      - name: user_id
+#        in: path
+#        required: true
+#        schema:
+#          type: string
+#      - name: session_id
+#        in: path
+#        required: true
+#        schema:
+#          type: string
+#    $ref: './spec/sso-svc/paths/AdminUserSession.yaml'
 
 components:
   schemas:
 
-    ########## sso-svc ##########
-
+    ############################## sso-svc ##############################
     # request
     RefreshToken:
       $ref: './spec/sso-svc/components/requests/RefreshToken.yaml'
     CreateUserByAdmin:
       $ref: './spec/sso-svc/components/requests/CreateUserByAdmin.yaml'
-
     # responses
     TokensPair:
       $ref: './spec/sso-svc/components/schemas/TokensPair.yaml'
@@ -113,8 +107,7 @@ components:
     Errors:
       $ref: './spec/common/components/schemas/Errors.yaml'
 
-    ########## elector-cab ##########
-
+    ############################## elector-cab ##############################
     # request
     UpdateOwnProfile:
       $ref: './spec/elector-cab-svc/components/requests/UpdateOwnProfile.yaml'
@@ -122,7 +115,6 @@ components:
       $ref: './spec/elector-cab-svc/components/requests/ResetProfileByAdmin.yaml'
     CreateOwnProfile:
       $ref: './spec/elector-cab-svc/components/requests/CreateOwnProfile.yaml'
-
     # responses
     Biography:
       $ref: './spec/elector-cab-svc/components/schemas/Biography.yaml'
@@ -139,9 +131,58 @@ components:
 
 
   responses:
+    ############################## common ##############################
     Internal:
       $ref: './spec/common/components/responses/internalServer.yaml'
     UnsupportedMediaType:
       $ref: './spec/common/components/responses/unsupportedMediaType.yaml'
     BadRequest:
       $ref: './spec/common/components/responses/badRequest.yaml'
+    Unauthorized:
+      $ref: './spec/common/components/responses/unauthorized.yaml'
+
+    ############################## sso-svc ##############################
+    NoPermissions:
+      $ref: './spec/sso-svc/components/responses/NoPermissions.yaml'
+    SessionClientMismatch:
+      $ref: './spec/sso-svc/components/responses/SessionClientMismatch.yaml'
+    SessionDoesNotBelongToUser:
+      $ref: './spec/sso-svc/components/responses/SessionDoesNotBelongToUser.yaml'
+    SessionNotFound:
+      $ref: './spec/sso-svc/components/responses/SessionNotFound.yaml'
+    SessionsForUserNotFound:
+      $ref: './spec/sso-svc/components/responses/SessionsForUserNotFound.yaml'
+    SessionTokenMismatch:
+      $ref: './spec/sso-svc/components/responses/SessionTokenMismatch.yaml'
+    UserAlreadyExists:
+      $ref: './spec/sso-svc/components/responses/UserAlreadyExists.yaml'
+    UserNotFound:
+      $ref: './spec/sso-svc/components/responses/UserNotFound.yaml'
+    UserSuspended:
+      $ref: './spec/sso-svc/components/responses/UserSuspended.yaml'
+
+    ############################## elector-cab ##############################
+    BirthdayIsAlreadySet:
+      $ref: './spec/elector-cab-svc/components/responses/BirthdayIsAlreadySet.yaml'
+    BirthdayIsNotValid:
+      $ref: './spec/elector-cab-svc/components/responses/BirthdayIsNotValid.yaml'
+    OnlyUserCanHaveProfile:
+      $ref: './spec/elector-cab-svc/components/responses/OnlyUserCanHaveProfile.yaml'
+    ProfileForUserNotFound:
+      $ref: './spec/elector-cab-svc/components/responses/ProfileForUserNotFound.yaml'
+    ProfileForUserAlreadyExists:
+      $ref: './spec/elector-cab-svc/components/responses/ProfileForUserAlreadyExists.yaml'
+    ResidenceIsNotValid:
+      $ref: './spec/elector-cab-svc/components/responses/ResidenceIsNotValid.yaml'
+    ResidenceUpdateCooldown:
+      $ref: './spec/elector-cab-svc/components/responses/ResidenceUpdateCooldown.yaml'
+    SexIsNotValid:
+      $ref: './spec/elector-cab-svc/components/responses/SexIsNotValid.yaml'
+    SexUpdateCooldown:
+      $ref: './spec/elector-cab-svc/components/responses/SexUpdateCooldown.yaml'
+    UsernameAlreadyTaken:
+      $ref: './spec/elector-cab-svc/components/responses/UsernameAlreadyTaken.yaml'
+    UsernameIsNotValid:
+      $ref: './spec/elector-cab-svc/components/responses/UsernameIsNotValid.yaml'
+    UsernameUpdateCooldown:
+      $ref: './spec/elector-cab-svc/components/responses/UsernameUpdateCooldown.yaml'

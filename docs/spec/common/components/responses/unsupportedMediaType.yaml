@@ -3,3 +3,15 @@ content:
   application/vnd.api+json:
     schema:
       $ref: '../schemas/Errors.yaml'
+    examples:
+      default:
+        summary: Unsupported Media Type Error
+        value:
+          errors:
+            - status: 415
+              title: Unsupported Media Type
+              code: UNSUPPORTED_MEDIA_TYPE
+              detail: "unsupported media type"
+              meta:
+                request_id: "1234567890abcdef"
+                timestamp: "2025-07-10T14:23:00Z"

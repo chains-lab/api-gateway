@@ -2,16 +2,16 @@ description: Username is not valid
 content:
   application/json:
     schema:
-      $ref: '../../common/components/schemas/Errors.yaml'
+      $ref: '../../../common/components/schemas/Errors.yaml'
     examples:
       default:
-        summary: Invalid username error
+        summary: Invalid username
         value:
           errors:
             - status: 400
               title: Bad Request
               code: USERNAME_IS_NOT_VALID
-              detail: "Username contains invalid characters."
+              detail: 'username is not valid, it must be 3-32 characters long, allowed characters are: a-z, A-Z, 0-9, _ (underscore), - (dash), . (dot)'
               meta:
                 request_id: "1234567890abcdef"
                 timestamp: "2025-07-10T14:23:00Z"

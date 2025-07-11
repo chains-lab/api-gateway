@@ -2,120 +2,142 @@ package renderer
 
 import (
 	"net/http"
+	"strings"
+	"time"
 
 	"github.com/chains-lab/gatekit/httpkit"
 	"github.com/google/jsonapi"
-	"github.com/google/uuid"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-// RenderGRPCError конвертирует gRPC-ошибку в JSON:API HTTP-ответ.
-func RenderGRPCError(w http.ResponseWriter, requestID uuid.UUID, err error) {
+func RenderGRPCError(w http.ResponseWriter, err error) {
 	st, ok := status.FromError(err)
 	if !ok {
-		InternalError(w, requestID)
+		InternalError(w, nil)
 		return
 	}
 	httpCode := mapCodeToHTTP(st.Code())
 
-	// Инициализируем Meta как указатель на карту
-	meta := map[string]interface{}{
-		"request_id": requestID.String(),
-	}
-
-	mainErr := &jsonapi.ErrorObject{
-		ID:     requestID.String(),
-		Status: http.StatusText(httpCode),
-		Code:   st.Code().String(),
-		Title:  st.Message(),
-		Meta:   &meta,
-	}
-
-	var errs []*jsonapi.ErrorObject
+	var (
+		requestID    string
+		timestamp    string
+		reason       string
+		domain       string
+		ri           *errdetails.ResourceInfo
+		descriptions []string
+	)
 
 	for _, d := range st.Details() {
 		switch info := d.(type) {
+		case *errdetails.RequestInfo:
+			requestID = info.RequestId
 
 		case *errdetails.ErrorInfo:
-			// Добавляем в meta.error_info
-			(*mainErr.Meta)["error_info"] = map[string]string{
-				"reason": info.Reason,
-				"domain": info.Domain,
+			reason = info.Reason
+			domain = info.Domain
+			if t, ok := info.Metadata["timestamp"]; ok {
+				timestamp = t
 			}
 
 		case *errdetails.ResourceInfo:
-			// Привязываем ресурс
-			(*mainErr.Meta)["resource"] = map[string]string{
-				"type":        info.ResourceType,
-				"name":        info.ResourceName,
-				"description": info.Description,
-			}
-			//mainErr.Source = &jsonapi.ErrorSource{
-			//	Pointer: "/" + info.ResourceType,
-			//}
+			ri = info
+			descriptions = append(descriptions, info.Description)
 
 		case *errdetails.BadRequest:
-			// Для каждого field violation создаём отдельный объект
 			for _, fv := range info.FieldViolations {
-				errs = append(errs, &jsonapi.ErrorObject{
-					Status: mainErr.Status,
-					Code:   mainErr.Code,
-					Title:  mainErr.Title,
-					Detail: fv.Description,
-					//Source: &jsonapi.ErrorSource{
-					//	Pointer: "/data/attributes/" + fv.Field,
-					//},
-					Meta: mainErr.Meta,
-				})
+				descriptions = append(descriptions, fv.Description)
 			}
 
 		case *errdetails.PreconditionFailure:
-			// Собираем preconditions в meta.preconditions
-			pre := make([]map[string]string, len(info.Violations))
-			for i, v := range info.Violations {
-				pre[i] = map[string]string{
-					"type":        v.Type,
-					"subject":     v.Subject,
-					"description": v.Description,
-				}
+			for _, v := range info.Violations {
+				descriptions = append(descriptions, v.Description)
 			}
-			(*mainErr.Meta)["preconditions"] = pre
 		}
 	}
 
-	// Собираем итоговый список ошибок
-	if len(errs) == 0 {
-		errs = []*jsonapi.ErrorObject{mainErr}
-	} else {
-		errs = append([]*jsonapi.ErrorObject{mainErr}, errs...)
+	if reason == "" {
+		reason = st.Code().String()
+	}
+	if timestamp == "" {
+		timestamp = time.Now().UTC().Format(time.RFC3339Nano)
+	}
+	if len(descriptions) == 0 {
+		descriptions = append(descriptions, st.Message())
+	}
+	detail := strings.Join(descriptions, "; ")
+
+	e := &jsonapi.ErrorObject{
+		Status: http.StatusText(httpCode),
+		Title:  st.Message(),
+		Code:   reason,
+		Detail: detail,
 	}
 
-	httpkit.RenderErr(w, errs...)
+	meta := map[string]interface{}{
+		"request_id": requestID,
+		"timestamp":  timestamp,
+		"domain":     domain,
+	}
+
+	if ri != nil {
+		meta["resource_type"] = ri.ResourceType
+		meta["resource_name"] = ri.ResourceName
+		meta["resource_description"] = ri.Description
+	}
+
+	e.Meta = &meta
+
+	httpkit.RenderErr(w, e)
 }
 
-// mapCodeToHTTP возвращает HTTP-код для данного gRPC-кода.
 func mapCodeToHTTP(code codes.Code) int {
 	switch code {
 	case codes.OK:
 		return http.StatusOK
-	case codes.InvalidArgument:
+
+	case codes.Canceled:
+		return http.StatusRequestTimeout
+
+	case codes.Unknown,
+		codes.Internal:
+		return http.StatusInternalServerError
+
+	case codes.InvalidArgument,
+		codes.OutOfRange:
 		return http.StatusBadRequest
-	case codes.NotFound:
-		return http.StatusNotFound
-	case codes.AlreadyExists:
-		return http.StatusConflict
-	case codes.PermissionDenied:
-		return http.StatusForbidden
-	case codes.Unauthenticated:
-		return http.StatusUnauthorized
-	case codes.ResourceExhausted:
-		return http.StatusTooManyRequests
+
 	case codes.DeadlineExceeded:
 		return http.StatusGatewayTimeout
+
+	case codes.NotFound:
+		return http.StatusNotFound
+
+	case codes.AlreadyExists:
+		return http.StatusConflict
+
+	case codes.PermissionDenied:
+		return http.StatusForbidden
+
+	case codes.ResourceExhausted:
+		return http.StatusTooManyRequests
+
+	case codes.FailedPrecondition:
+		return http.StatusPreconditionFailed
+
+	case codes.Aborted:
+		return http.StatusConflict
+
+	case codes.Unimplemented:
+		return http.StatusNotImplemented
+
 	case codes.Unavailable:
 		return http.StatusServiceUnavailable
+
+	case codes.Unauthenticated:
+		return http.StatusUnauthorized
+
 	default:
 		return http.StatusBadGateway
 	}

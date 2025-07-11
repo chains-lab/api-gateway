@@ -9,12 +9,12 @@ get:
       content:
         application/vnd.api+json:
           schema:
-            $ref: '../../spec/sso-svc/components/responses/User.yaml'
+            $ref: '../components/schemas/User.yaml'
     '401':
       description: You must provide a valid authorization params.
-      $ref: '../../spec/components/responses/unauthorized.yaml'
+      $ref: '../../spec/responses/unauthorized.yaml'
     '404':
       description: User not found
-      $ref: '../../spec/components/responses/notFound.yaml'
+      $ref: '../../spec/responses/notFound.yaml'
     '500':
-      $ref: '../../spec/components/responses/internal.yaml'
+      $ref: '../../spec/responses/internal.yaml'

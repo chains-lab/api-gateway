@@ -1,17 +1,17 @@
-description: Bad Request
+description: Session token mismatch
 content:
   application/json:
     schema:
-      $ref: '../../common/components/schemas/Errors.yaml'
+      $ref: '../../../common/components/schemas/Errors.yaml'
     examples:
       default:
-        summary: Bad Request Error
+        summary: Mismatched session token
         value:
           errors:
             - status: 400
               title: Bad Request
-              code: BAD_REQUEST
-              detail: "bad request"
+              code: SESSION_TOKEN_MISMATCH
+              detail: session token mismatch
               meta:
-                request_id: "1234567890abcdef"
-                timestamp: "2025-07-10T14:23:00Z"
+                request_id: '1234567890abcdef'
+                timestamp: '2025-07-10T14:23:00Z'

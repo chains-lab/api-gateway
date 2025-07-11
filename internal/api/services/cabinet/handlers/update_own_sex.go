@@ -25,7 +25,7 @@ func UpdateOwnSex(w http.ResponseWriter, r *http.Request) {
 	signature, err := signer.SignWithUser(r, requestID, []string{"elector-cab-svc"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", initiator.UserID)
-		renderer.InternalError(w, requestID)
+		renderer.InternalError(w, &requestID)
 
 		return
 	}
@@ -37,7 +37,7 @@ func UpdateOwnSex(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error updating own sex")
-		renderer.RenderGRPCError(w, requestID, err)
+		renderer.RenderGRPCError(w, err)
 
 		return
 	}

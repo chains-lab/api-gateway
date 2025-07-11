@@ -1,17 +1,17 @@
-description: Bad Request
+description: Only user can have profile
 content:
   application/json:
     schema:
-      $ref: '../../common/components/schemas/Errors.yaml'
+      $ref: '../../../common/components/schemas/Errors.yaml'
     examples:
       default:
-        summary: Bad Request Error
+        summary: Permission denied
         value:
           errors:
-            - status: 400
-              title: Bad Request
-              code: BAD_REQUEST
-              detail: "bad request"
+            - status: 403
+              title: Forbidden
+              code: ONLY_USER_CAN_HAVE_PROFILE
+              detail: only users can have profile or cabinet
               meta:
                 request_id: "1234567890abcdef"
                 timestamp: "2025-07-10T14:23:00Z"

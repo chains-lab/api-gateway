@@ -1,7 +1,7 @@
 /*
-Cifra SSO REST API
+Chains API
 
-SSO REST API for Cifra app
+Chains API
 
 API version: 0.0.1
 */
@@ -41,21 +41,13 @@ var (
 	queryDescape    = strings.NewReplacer( "%5B", "[", "%5D", "]" )
 )
 
-// APIClient manages communication with the Cifra SSO REST API API v0.0.1
+// APIClient manages communication with the Chains API API v0.0.1
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-
-	AdminAPI *AdminAPIService
-
-	LoginAPI *LoginAPIService
-
-	SessionsAPI *SessionsAPIService
-
-	UserAPI *UserAPIService
 }
 
 type service struct {
@@ -74,10 +66,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.AdminAPI = (*AdminAPIService)(&c.common)
-	c.LoginAPI = (*LoginAPIService)(&c.common)
-	c.SessionsAPI = (*SessionsAPIService)(&c.common)
-	c.UserAPI = (*UserAPIService)(&c.common)
 
 	return c
 }

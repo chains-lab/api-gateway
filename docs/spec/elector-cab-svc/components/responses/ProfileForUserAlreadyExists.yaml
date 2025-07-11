@@ -1,17 +1,17 @@
-description: Bad Request
+description: Profile already exists for user
 content:
   application/json:
     schema:
-      $ref: '../../common/components/schemas/Errors.yaml'
+      $ref: '../../../common/components/schemas/Errors.yaml'
     examples:
       default:
-        summary: Bad Request Error
+        summary: Conflict
         value:
           errors:
-            - status: 400
-              title: Bad Request
-              code: BAD_REQUEST
-              detail: "bad request"
+            - status: 409
+              title: Conflict
+              code: PROFILE_FOR_USER_ALREADY_EXISTS
+              detail: cabinet for user {user_id} already exists
               meta:
                 request_id: "1234567890abcdef"
                 timestamp: "2025-07-10T14:23:00Z"

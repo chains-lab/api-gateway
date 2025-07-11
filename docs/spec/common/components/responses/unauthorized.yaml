@@ -1,0 +1,17 @@
+description: Unauthorized
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/Errors.yaml'
+    examples:
+      default:
+        summary: Unauthorized
+        value:
+          errors:
+            - status: 401
+              title: Unauthorized
+              code: UNAUTHORIZED
+              detail: "You must provide a valid authorization params."
+              meta:
+                request_id: "1234567890abcdef"
+                timestamp: "2025-07-10T14:23:00Z"

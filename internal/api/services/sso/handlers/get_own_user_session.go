@@ -16,7 +16,7 @@ func GetOwnUserSession(w http.ResponseWriter, r *http.Request) {
 	signature, err := signer.SignWithUser(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for own session")
-		renderer.InternalError(w, requestID)
+		renderer.InternalError(w, &requestID)
 
 		return
 	}
@@ -24,7 +24,7 @@ func GetOwnUserSession(w http.ResponseWriter, r *http.Request) {
 	sessions, err := SsoUserClient(r).GetOwnUserSessions(signature, &emptypb.Empty{})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error retrieving own session")
-		renderer.RenderGRPCError(w, requestID, err)
+		renderer.RenderGRPCError(w, err)
 
 		return
 	}

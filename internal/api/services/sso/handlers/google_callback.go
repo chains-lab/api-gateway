@@ -26,7 +26,7 @@ func GoogleCallback(w http.ResponseWriter, r *http.Request) {
 	signature, err := signer.SignWithoutUser(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for new user")
-		renderer.InternalError(w, requestID)
+		renderer.InternalError(w, &requestID)
 
 		return
 	}
@@ -36,7 +36,7 @@ func GoogleCallback(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error retrieving Google callback response")
-		renderer.InternalError(w, requestID)
+		renderer.InternalError(w, &requestID)
 
 		return
 	}

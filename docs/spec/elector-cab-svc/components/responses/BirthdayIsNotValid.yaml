@@ -1,17 +1,17 @@
-description: Bad Request
+description: Invalid birthday value
 content:
   application/json:
     schema:
-      $ref: '../../common/components/schemas/Errors.yaml'
+      $ref: '../../../common/components/schemas/Errors.yaml'
     examples:
       default:
-        summary: Bad Request Error
+        summary: Invalid birthday
         value:
           errors:
             - status: 400
               title: Bad Request
-              code: BAD_REQUEST
-              detail: "bad request"
+              code: BIRTHDAY_IS_NOT_VALID
+              detail: birthday is not valid, it must be in the past, but not before 1900-01-01
               meta:
                 request_id: "1234567890abcdef"
                 timestamp: "2025-07-10T14:23:00Z"

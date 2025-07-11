@@ -1,17 +1,17 @@
-description: Session client mismatch
+description: No permission to perform action
 content:
   application/json:
     schema:
       $ref: '../../../common/components/schemas/Errors.yaml'
     examples:
       default:
-        summary: Mismatched session client
+        summary: Permission denied
         value:
           errors:
-            - status: 400
-              title: Bad Request
-              code: SESSION_CLIENT_MISMATCH
-              detail: session client mismatch
+            - status: 403
+              title: Forbidden
+              code: NO_PERMISSIONS
+              detail: no permission to perform this action
               meta:
                 request_id: '1234567890abcdef'
                 timestamp: '2025-07-10T14:23:00Z'

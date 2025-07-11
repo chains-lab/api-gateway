@@ -1,510 +1,466 @@
 openapi: 3.1.1
 info:
-  description: SSO REST API for Cifra app
-  title: Cifra SSO REST API
+  description: Chains API
+  title: Chains API
   version: 0.0.1
 servers:
 - url: /
-paths:
-  /chains/auth/v1/own:
-    get:
-      description: Endpoint to get user
-      responses:
-        "201":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/User"
-          description: User successfully get
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-          description: You must provide a valid authorization params.
-        "404":
-          $ref: "#/components/responses/NotFound"
-          description: User not found
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: Get user
-      tags:
-      - User
-  /re-news/chains/auth/v1/own/refresh:
-    post:
-      description: Endpoint to refresh an expired access token using a valid refresh
-        token.
-      requestBody:
-        content:
-          application/vnd.api+json:
-            schema:
-              $ref: "#/components/schemas/RefreshToken"
-        required: true
-      responses:
-        "200":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/TokensPair"
-          description: Access token successfully refreshed.
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "409":
-          $ref: "#/components/responses/Conflict"
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: Refresh Access Token
-      tags:
-      - Sessions
-  /re-news/chains/auth/v1/own/login:
-    post:
-      description: Endpoint to login use google user
-      responses:
-        "302":
-          description: Redirect to Google callback endpoint
-          headers:
-            Location:
-              description: URL for redirection
-              explode: false
-              schema:
-                example: /re-news/chains/sso/v1/own/callback
-                type: string
-              style: simple
-        "500":
-          $ref: "#/components/responses/Internal"
-      tags:
-      - Login
-  /re-news/chains/auth/v1/own/callback:
-    post:
-      description: Endpoint to login use google user
-      responses:
-        "201":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/TokensPair"
-          description: User successfully login
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "500":
-          $ref: "#/components/responses/Internal"
-      tags:
-      - Login
-  /re-news/chains/auth/v1/own/logout:
-    post:
-      description: Endpoint to logout user
-      responses:
-        "201":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/TokensPair"
-          description: User successfully logout
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "404":
-          $ref: "#/components/responses/NotFound"
-          description: User not found or session not found
-        "500":
-          $ref: "#/components/responses/Internal"
-      tags:
-      - Login
-  /re-news/chains/auth/v1/own/sessions:
-    delete:
-      description: Endpoint to terminate user's sessions
-      responses:
-        "201":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/SessionsCollection"
-          description: successfully
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: Terminate user's sessions
-      tags:
-      - Sessions
-    get:
-      description: Endpoint to get user's sessions
-      responses:
-        "201":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/SessionsCollection"
-          description: Successfully
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: Get user's sessions
-      tags:
-      - Sessions
-  /re-news/chains/auth/v1/own/sessions/{session_id}:
-    delete:
-      description: Endpoint to terminate user's session
-      parameters:
-      - explode: false
-        in: path
-        name: session_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "201":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/SessionsCollection"
-          description: successfully
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: Terminate user's session
-      tags:
-      - Sessions
-    get:
-      description: Endpoint to get user's session
-      parameters:
-      - explode: false
-        in: path
-        name: session_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "201":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/Session"
-          description: User sessions successfully get
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: Get user's session
-      tags:
-      - Sessions
-    parameters:
-    - explode: false
-      in: path
-      name: session_id
-      required: true
-      schema:
-        type: string
-      style: simple
-  /re-news/chains/auth/v1/admin/{user_id}:
-    get:
-      description: Endpoint to get user
-      parameters:
-      - explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/User"
-          description: User successfully get
-        "400":
-          $ref: "#/components/responses/BadRequest"
-          description: Invalid request parameters
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-          description: Unauthorized access
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: admin get user
-      tags:
-      - Admin
-    parameters:
-    - explode: false
-      in: path
-      name: user_id
-      required: true
-      schema:
-        type: string
-      style: simple
-  /re-news/chains/auth/v1/admin/{user_id}/{role}:
-    parameters:
-    - explode: false
-      in: path
-      name: user_id
-      required: true
-      schema:
-        type: string
-      style: simple
-    - explode: false
-      in: path
-      name: role
-      required: true
-      schema:
-        type: string
-      style: simple
-    post:
-      description: Endpoint to update user
-      parameters:
-      - explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: role
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/User"
-          description: User successfully updated
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-          description: Haven't permission to update user
-        "404":
-          $ref: "#/components/responses/NotFound"
-          description: User not found
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: admin role update
-      tags:
-      - Admin
-  /re-news/chains/auth/v1/admin/{user_id}/sessions:
-    delete:
-      description: Endpoint to delete user sessions if you admin
-      parameters:
-      - explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "204":
-          description: Delete user sessions successfully
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: admin delete users sessions
-      tags:
-      - Admin
-    get:
-      description: Endpoint to get user if you admin
-      parameters:
-      - explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/SessionsCollection"
-          description: User sessions successfully get
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: admin get sessions
-      tags:
-      - Admin
-    parameters:
-    - explode: false
-      in: path
-      name: user_id
-      required: true
-      schema:
-        type: string
-      style: simple
-  /re-news/chains/auth/v1/admin/{user_id}/sessions/{session_id}:
-    delete:
-      description: Endpoint to delete user session if you admin
-      parameters:
-      - explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: session_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "204":
-          description: Delete user session successfully
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-          description: Haven't permission to delete user session
-        "404":
-          $ref: "#/components/responses/NotFound"
-          description: User not found or session not found
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: admin delete user session
-      tags:
-      - Admin
-    get:
-      description: Endpoint to get user if you admin
-      parameters:
-      - explode: false
-        in: path
-        name: user_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: session_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/vnd.api+json:
-              schema:
-                $ref: "#/components/schemas/Session"
-          description: User sessions successfully get
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "403":
-          $ref: "#/components/responses/Forbidden"
-          description: Haven't permission to get user session
-        "404":
-          $ref: "#/components/responses/NotFound"
-          description: User not found
-        "500":
-          $ref: "#/components/responses/Internal"
-      summary: admin get session
-      tags:
-      - Admin
-    parameters:
-    - explode: false
-      in: path
-      name: user_id
-      required: true
-      schema:
-        type: string
-      style: simple
-    - explode: false
-      in: path
-      name: session_id
-      required: true
-      schema:
-        type: string
-      style: simple
+paths: {}
 components:
   responses:
-    Unauthorized:
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: "#/components/schemas/Errors"
-      description: You must provide a valid authorization params.
-    NotFound:
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: "#/components/schemas/Errors"
-      description: Requested resource does not exist.
-    Forbidden:
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: "#/components/schemas/Errors"
-      description: Forbidden
     Internal:
       content:
-        application/vnd.api+json:
+        application/json:
+          examples:
+            default:
+              summary: Internal Server Error
+              value:
+                errors:
+                - status: 500
+                  title: Internal Server Error
+                  code: INTERNAL_SERVER_ERROR
+                  detail: internal server error
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
           schema:
             $ref: "#/components/schemas/Errors"
-      description: Internal server error
-    Conflict:
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: "#/components/schemas/Errors"
-      description: Conflict
-    TooManyRequests:
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: "#/components/schemas/Errors"
-      description: Too many requests
+      description: Internal Server Error
     UnsupportedMediaType:
       content:
         application/vnd.api+json:
+          examples:
+            default:
+              summary: Unsupported Media Type Error
+              value:
+                errors:
+                - status: 415
+                  title: Unsupported Media Type
+                  code: UNSUPPORTED_MEDIA_TYPE
+                  detail: unsupported media type
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
           schema:
             $ref: "#/components/schemas/Errors"
       description: Unsupported Media Type
     BadRequest:
       content:
-        application/vnd.api+json:
+        application/json:
+          examples:
+            default:
+              summary: Bad Request Error
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: BAD_REQUEST
+                  detail: bad request
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
           schema:
             $ref: "#/components/schemas/Errors"
-      description: bad request
+      description: Bad Request
+    Unauthorized:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Unauthorized
+              value:
+                errors:
+                - status: 401
+                  title: Unauthorized
+                  code: UNAUTHORIZED
+                  detail: You must provide a valid authorization params.
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Unauthorized
+    NoPermissions:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Permission denied
+              value:
+                errors:
+                - status: 403
+                  title: Forbidden
+                  code: NO_PERMISSIONS
+                  detail: no permission to perform this action
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: No permission to perform action
+    SessionClientMismatch:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Mismatched session client
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: SESSION_CLIENT_MISMATCH
+                  detail: session client mismatch
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Session client mismatch
+    SessionDoesNotBelongToUser:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Session ownership error
+              value:
+                errors:
+                - status: 403
+                  title: Forbidden
+                  code: SESSION_DOES_NOT_BELONG_TO_USER
+                  detail: "session {session_id} does not belong to user {user_id}"
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Session does not belong to user
+    SessionNotFound:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Session not found
+              value:
+                errors:
+                - status: 404
+                  title: Not Found
+                  code: SESSION_NOT_FOUND
+                  detail: "session {session_id} not found"
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Session not found
+    SessionsForUserNotFound:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: No sessions found for this user
+              value:
+                errors:
+                - status: 404
+                  title: Not Found
+                  code: SESSIONS_FOR_USER_NOT_FOUND
+                  detail: "no sessions found for user {user_id}"
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: No sessions for user
+    SessionTokenMismatch:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Mismatched session token
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: SESSION_TOKEN_MISMATCH
+                  detail: session token mismatch
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Session token mismatch
+    UserAlreadyExists:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: User exists
+              value:
+                errors:
+                - status: 409
+                  title: Conflict
+                  code: USER_ALREADY_EXISTS
+                  detail: user already exists
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: User already exists
+    UserNotFound:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: User not found
+              value:
+                errors:
+                - status: 404
+                  title: Not Found
+                  code: USER_NOT_FOUND
+                  detail: "user {user_id} not found"
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: User not found
+    UserSuspended:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Suspended user
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: USER_SUSPENDED
+                  detail: "user {user_id} is suspended"
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: User account suspended
+    BirthdayIsAlreadySet:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Birthday locked
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: BIRTHDAY_IS_ALREADY_SET
+                  detail: birthday is already set and cannot be changed
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Birthday already set
+    BirthdayIsNotValid:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Invalid birthday
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: BIRTHDAY_IS_NOT_VALID
+                  detail: "birthday is not valid, it must be in the past, but not\
+                    \ before 1900-01-01"
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Invalid birthday value
+    OnlyUserCanHaveProfile:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Permission denied
+              value:
+                errors:
+                - status: 403
+                  title: Forbidden
+                  code: ONLY_USER_CAN_HAVE_PROFILE
+                  detail: only users can have profile or cabinet
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Only user can have profile
+    ProfileForUserNotFound:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Profile not found
+              value:
+                errors:
+                - status: 404
+                  title: Not Found
+                  code: PROFILE_FOR_USER_NOT_FOUND
+                  detail: "profile for user {user_id} not found"
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Profile for user not found
+    ProfileForUserAlreadyExists:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Conflict
+              value:
+                errors:
+                - status: 409
+                  title: Conflict
+                  code: PROFILE_FOR_USER_ALREADY_EXISTS
+                  detail: "cabinet for user {user_id} already exists"
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Profile already exists for user
+    ResidenceIsNotValid:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Invalid residence
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: RESIDENCE_IS_NOT_VALID
+                  detail: "residence is not valid, it must be a valid country name"
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Residence is not valid
+    ResidenceUpdateCooldown:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Residence update too soon
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: RESIDENCE_UPDATE_COOLDOWN
+                  detail: residence can be updated only once per 100 days
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Residence update cooldown
+    SexIsNotValid:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Invalid sex
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: SEX_IS_NOT_VALID
+                  detail: sex is not valid
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Invalid sex value
+    SexUpdateCooldown:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Sex update too soon
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: SEX_UPDATE_COOLDOWN
+                  detail: sex can be updated only once per year
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Sex update cooldown
+    UsernameAlreadyTaken:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Username already in use
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: USERNAME_ALREADY_TAKEN
+                  detail: This username is already in use by another account
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Username already taken
+    UsernameIsNotValid:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Invalid username
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: USERNAME_IS_NOT_VALID
+                  detail: "username is not valid, it must be 3-32 characters long,\
+                    \ allowed characters are: a-z, A-Z, 0-9, _ (underscore), - (dash),\
+                    \ . (dot)"
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Username is not valid
+    UsernameUpdateCooldown:
+      content:
+        application/json:
+          examples:
+            default:
+              summary: Username update too soon
+              value:
+                errors:
+                - status: 400
+                  title: Bad Request
+                  code: USERNAME_UPDATE_COOLDOWN
+                  detail: username can be updated only once per 14 days
+                  meta:
+                    request_id: 1234567890abcdef
+                    timestamp: 2025-07-10T14:23:00Z
+          schema:
+            $ref: "#/components/schemas/Errors"
+      description: Username update cooldown
   schemas:
     RefreshToken:
       properties:
@@ -772,6 +728,7 @@ components:
           $ref: "#/components/schemas/TokensPair_data_attributes"
       required:
       - attributes
+      - relationships
       - type
     AccessToken_data_attributes:
       properties:
@@ -851,53 +808,10 @@ components:
       - attributes
       - id
       - type
-    Errors_errors_inner_meta:
-      properties:
-        error_id:
-          description: "Error ID is a unique identifier for the error, used for debugging\
-            \ and tracing"
-          example: 0987654321fedcba
-          type: string
-        request_id:
-          description: "Request ID is a unique identifier for the request, used for\
-            \ debugging and tracing"
-          example: 1234567890abcdef
-          type: string
-        parameter:
-          description: "Parameter is the name of the request parameter that caused\
-            \ the error, if applicable"
-          example: email
-          type: string
-        pointer:
-          description: "Pointer is a JSON Pointer that identifies the part of the\
-            \ request document that caused the error, if applicable"
-          example: /data/attributes/email
-          type: string
-        timestamp:
-          description: "Timestamp is the time when the error occurred, in ISO 8601\
-            \ format"
-          example: 2023-10-01T12:34:56Z
-          format: date-time
-          type: string
-      required:
-      - error_id
-      - request_id
-      - timestamp
     Errors_errors_inner:
       properties:
         status:
           description: Status is the HTTP status code applicable to this problem
-          enum:
-          - 400
-          - 401
-          - 403
-          - 404
-          - 405
-          - 408
-          - 409
-          - 415
-          - 429
-          - 500
           example: 400
           type: integer
         title:
@@ -915,11 +829,8 @@ components:
           example: Request body was expected
           type: string
         meta:
-          $ref: "#/components/schemas/Errors_errors_inner_meta"
+          type: object
       required:
-      - code
-      - detail
-      - meta
       - status
       - title
     UpdateOwnProfile_data_attributes:

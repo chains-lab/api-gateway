@@ -24,7 +24,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	signature, err := signer.SignWithUser(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", initiator.UserID)
-		renderer.InternalError(w, requestID)
+		renderer.InternalError(w, &requestID)
 
 		return
 	}
@@ -32,7 +32,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	_, err = SsoUserClient(r).Logout(signature, &emptypb.Empty{})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error logging out user %s", initiator.UserID)
-		renderer.RenderGRPCError(w, requestID, err)
+		renderer.RenderGRPCError(w, err)
 
 		return
 	}

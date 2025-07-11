@@ -25,7 +25,7 @@ func GetProfile(w http.ResponseWriter, r *http.Request) {
 	signature, err := signer.SignWithUser(r, requestID, []string{"elector-cab-svc"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for user %s", initiator.UserID)
-		renderer.InternalError(w, requestID)
+		renderer.InternalError(w, &requestID)
 
 		return
 	}
@@ -60,7 +60,7 @@ func GetProfile(w http.ResponseWriter, r *http.Request) {
 	profile, err := ElectorCabUserClient(r).GetProfile(signature, grpcReq)
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error retrieving profile for user %s", initiator.UserID)
-		renderer.RenderGRPCError(w, requestID, err)
+		renderer.RenderGRPCError(w, err)
 
 		return
 	}

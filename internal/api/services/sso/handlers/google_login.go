@@ -16,7 +16,7 @@ func GoogleLogin(w http.ResponseWriter, r *http.Request) {
 	signature, err := signer.SignWithoutUser(r, requestID, []string{"chains-sso"})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error signing service token for new user")
-		renderer.InternalError(w, requestID)
+		renderer.InternalError(w, &requestID)
 
 		return
 	}
@@ -24,7 +24,7 @@ func GoogleLogin(w http.ResponseWriter, r *http.Request) {
 	rep, err := SsoUserClient(r).GoogleLogin(signature, &emptypb.Empty{})
 	if err != nil {
 		Log(r, requestID).WithError(err).Errorf("error retrieving Google login URL")
-		renderer.InternalError(w, requestID)
+		renderer.InternalError(w, &requestID)
 
 		return
 	}
